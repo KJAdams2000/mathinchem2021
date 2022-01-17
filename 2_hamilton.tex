@@ -1,0 +1,696 @@
+\chapter{Hamilton力学}
+    \section{牛顿运动方程}
+    \subsection{牛顿运动方程及保守系统}
+    \par
+    这里抛开经典力学的时空观和经典力学的相对性原理（即经典力学中的物理规律在
+    伽利略变换下不变）不谈，关注经典力学的另一个特征——决定性.实验事实（指一定精度下
+    的实验，完全有可能被更为精确的实验所推翻）告诉我们对于一个封闭的力学系统，
+    其初始位置$\bm{x}(t_0)$和初始速度$\dot{\bm{x}}(t_0)$的情况下可以唯一确定这个
+    系统今后的运动状态.
+    \par 既然对于一个力学系统其初始位置和初始速度可以决定其运动状态，那么它们也决定了系统
+    任意时刻的加速度，即存在一个函数$\bm{F}$使得：
+    \begin{equation}
+        m\ddot{\bm{x}} = \bm{F}(\bm{x}, \dot{\bm{x}}, t)
+    \end{equation}
+    由微分方程解的存在唯一性定理，若已知$\bm{x}(t_0),\, \dot{\bm{x}}(t_0)$与$\mb{F}$
+    则上述微分方程唯一确定了一个运动.函数$F$的形式要通过实验来确定，如果确定了其形式，
+    那么就知道了对应力学系统的运动方程.
+    \par 如果一个力学系统的运动方程可以写为：
+    \begin{equation}
+        m\ddot{\bm{x}} = -\pdv{V(\bm{x})}{\bm{x}}
+    \end{equation}
+    这样的力学系统称为保守系统.一个完全等价的说法是，在外力场中运动的系统，外力
+    对其所做的功与路径无关，只与起点和终点有关；用数学语言描述，对于位形空间中的任何一条
+    闭合的光滑曲线$C$，下式成立：
+    \begin{equation}
+        \int_{C}\bm{F}\cdot\mathrm{d} \bm{r} = 0
+    \end{equation}
+    可以证明，若上述条件满足，那么存在一个函数$U(\bm{x})$使得$\bm{F} = -\nabla U(\bm{x})$，
+    这样的系统为保守系统.一般而言，我们讨论的系统都属于保守系统，比如重力场、中心力场等.
+    \par 
+    保守系统中的势能函数很大程度上决定了系统的性质，其中最基本的是势能的对称性确保了力学
+    系统中的一些守恒量.下面仅用势能的时间平移不变性（势函数不显含时间）来说明系统的能量
+    守恒.能量被定义为：
+    \begin{equation}
+        E = T + V = \frac{1}{2}m\dot{\bm{x}}^2 + V(x)
+    \end{equation}
+    考虑$E$对时间的全导数，即考虑一个真实路径$\bm{x}(t)$上$E$对时间的导数（带入
+    运动方程）：
+    \begin{equation}
+        \begin{split}
+            \dv{E}{t} & = m\ddot{\bm{x}}\dot{\bm{x}} + \dv{V(\bm{x}(t))}{t}\\
+            & = - \pdv{V(\bm{x})}{\bm{x}} \cdot \dot{\bm{x}} + \pdv{V(\bm{x})}{\bm{x}}
+            \cdot \dot{\bm{x}}\\
+            & = 0
+        \end{split}
+    \end{equation}
+    这就说明在运动过程中能量$E$是一个守恒量.（类似的还有势能的平移对称性对应的动量守恒和
+    旋转对称性对应的角动量守恒，这提示我们势能的对称性和守恒量之间存在对应关系）
+    \subsection{使用牛顿方程解决问题}
+    牛顿方程是一个二阶微分方程，对于高阶微分方程，一般的研究方法是将其化为一阶微分方程组.
+    在这里仅考虑一维系统，引入物理中具有重要意义的量——动量：$\bm{p} := \frac{\dot{\bm{x}}}{m}$，
+    将牛顿方程转化为一个微分方程组（此时动量$\bm{p}$与位置$\bm{x}$为独立的变量）：
+    \begin{equation}
+        \dot{x} = \frac pm\\
+        \dot{p} = -\frac {\partial V}{\partial x}
+    \end{equation}
+    \par
+    首先研究HCl分子.每个原子的坐标有3个自由度，总共是6个自由度.而这个分子总体有3个平动自由度，
+    2个转动自由度，还剩余1个振动自由度.振动自由度的能量由\textbf{势能面}来描述
+    \footnote{按照笔记修改者的理解，势能面应该是体系势能与坐标之间的函数关系.对于二体问题而言，
+    仅用势能面来描述系统振动自由度的势能是不合适的，它忽略了转动对于振动的影响.如果严格处理这个问题，
+    首先在相对位置坐标（直接采用极坐标$(r, \phi)$，其中$\mu$为折合质量）下写出能量守恒的表达式：
+    \begin{equation}
+        E = \frac{1}{2}\mu\left(\dot{r}^2 + r^2\dot{\phi}^2\right) + V(r)
+    \end{equation}
+    考虑到中心力场中角动量守恒，即$J = \mu r^2 \dot{\phi}$是一个守恒量，带入能量守恒的表达式：
+    \begin{equation}
+        E = \frac{1}{2}\mu\left(\dot{r}^2 + \frac{J^2}{\mu^2r^2}\right) + V(r)
+    \end{equation}
+    将上式对时间求导后就会得到径向运动方程：
+    \begin{equation}
+        \mu \ddot{r} - \frac{J^2}{\mu r^3} + \pdv{V}{r} = 0
+    \end{equation}
+    可以看出，只有在不考虑转动时（角动量很小或者为0）才是正文中所讨论的情况
+    }
+    .势能面是两个原子的距离$r$的函数，满足
+    \begin{equation}
+        \lim_{r \to \infty} V(r) = 0
+    \end{equation}
+    当$r$减小时，势能逐渐减小，有一个\textbf{极小值}，对应的两原子距离称为平衡位置$r_\mathrm{eq}$, 然后再减小$r$时，势能增大，最后达到
+    \begin{equation}
+        \lim_{r \to 0^+} V(r) = +\infty
+    \end{equation}
+    这与两个原子的间距不能无穷近是一致的.
+    实际上在平衡位置附近，我们把势能函数用二次函数近似\footnote{
+        将势能函数在平衡位置Taylor展开，保留到二阶（除非没有二阶项）
+    }（即将真实的物理系统想象成为谐振子）.
+    通过改变势能零点的定义，我们总可以把势能写为
+    \begin{equation}
+        V(r) = \frac{1}{2}k(r-r_\mathrm{eq})^2
+    \end{equation}
+    根据势能的形式可以写出力的形式
+    \begin{equation}
+        F = -\frac {\partial V}{\partial r} = -k(r-r_\mathrm{eq})
+    \end{equation}
+    做变换$x = r - r_\mathrm{eq}$, 可以将势能写为
+    \begin{equation}
+        V(x) = \frac 12 kx^2
+    \end{equation}
+    带入牛顿运动方程，得到关于位置和动量的微分方程组：
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= \frac pm\\
+            \dot{p} &= -kx
+        \end{split}
+    \end{equation}
+    现在求解这个运动方程：
+    \begin{equation}
+        \ddot{x} = \frac {\dot{p}}m = -\frac {kx}{m}
+    \end{equation}
+    这是一个二阶常微分方程，通解为：
+    \begin{equation}
+        \begin{split}
+            x &= A \cos{\omega t} + B \sin{\omega t}\\
+            p &= -{Am\omega} \sin{\omega t} + {Bm \omega} \cos{\omega t}
+        \end{split}
+    \end{equation}
+    其中$\omega = \sqrt{\frac km}$. 如果给定初始条件：
+    \begin{equation}
+        x(0) = x_0\\
+        p(0) = p_0
+    \end{equation}
+    将这两个方程代入到通解中，得到：
+    \begin{equation}
+        \begin{split}
+            x &= x_0 \cos{\omega t} + \frac {p_0}{m\omega} \sin{\omega t}\\
+            p &= p_0 \cos{\omega t} - {m\omega x_0} \sin{\omega t}
+        \end{split}
+    \end{equation}
+    \subsection{遗留的一个问题}
+    匀变速直线运动，应当有
+    \begin{equation}\begin{aligned}
+        x(t) &= x(0) + vt + \frac 12 at^2 \\
+        &= x(0) + \dot{x}t + \frac 12 \ddot{x}t^2
+    \end{aligned}\end{equation}
+    这相当于位置对时间作了Taylor展开，展开到二阶.但是为什么只考虑前两阶，而不考虑后面的项呢？
+    可以这样考虑：在给定了Hamilton函数的情形下，正则方程最多只涉及到对时间的二阶导数，
+    最终解出位置对时间的函数，以及动量对时间的函数只有两个待定常数，因此只用位置和动量初始的条件.
+    \footnote{
+        这里给出的是笔记书写者的看法.为什么牛顿方程是二阶常微分方程，修改者认为这是由经典力学的
+        \textbf{决定性}导致的.力学系统的位置和位置对于时间的导数可以唯一决定力学系统今后的状态，
+        如果在位形空间中列出运动方程（Newton方程、Euler-Lagrange方程），那必然是二阶微分方程
+        （此时微分方程解的存在唯一性定理与经典力学的决定性相容）；如果在相空间
+    }
+    \section{Hamilton 正则方程}
+    \subsection{Hamilton 方程的导出和性质}
+    前面已经看到，我们通过定义\textbf{动量}为独立变量的方式，将一维系统的一个二阶常微分方程化为了
+    两个变量组成的一阶常微分方程组.这样的方法也能推广到$n$维系统，由于$2n$个初始条件（初始坐标
+    和初始速度）决定了这个系统的运动，对应的我们也需要$2n$个一阶的方程组来描述这个系统；另一个问题是
+    如何选择独立的变量，自然的想法是将$n$个坐标和$n$个“动量”（严格来讲是\textbf{广义动量}）选为
+    独立变量，这样得到的方程组称为Hamilton正则方程.
+    \par 
+    关于Hamilton方程组的严格导出需要从Lagrange量和Euler-Lagrange方程出发，这里仅给出相关结论（具体
+    的过程可以参考后面的章节）.一般而言，系统的Hamilton函数是系统坐标、动量与时间的函数
+    $H = H(\{x_i\},\{p_i\},t)$，系统的运动方程由Hamilton正则方程给出：
+    \begin{equation}
+        \left\{
+            \begin{split}
+                \dot{x_{i}} &= \pdv{H}{p_i}\\
+                \dot{p_{i}} &= -\pdv{H}{x_{i}}
+            \end{split}
+        \right.
+        \quad\quad
+        i = 1, 2, 3, \cdots, n
+        \label{Hamilton equation}
+    \end{equation}
+    这里不经证明地给出一维（可以推广到高维）保守体系体系在直角坐标系中的Hamilton函数：
+    \begin{equation}
+        H(x,p,t) = \frac {p^2}{2m} + V(x)
+    \end{equation}
+    可以在一维情形下通过牛顿方程验证\textbf{正则方程}的正确性：
+    \begin{equation}
+        \begin{split}
+        \frac {\partial H}{\partial x} &= \frac {\partial V}{\partial x} = -\dot{p}\\
+        \frac {\partial H}{\partial p} &= \frac pm = \dot{x}
+        \end{split}
+    \end{equation}
+    现在希望验算对于Hamilton量不含时（具有时间平移对称性）的系统，在其任何一个由正则方程
+    决定的路径上Hamilton量守恒，即：
+    \begin{equation}
+        H(x(t),p(t),t) = H(x(0),p(0),0)~~~~~\forall t
+    \end{equation}
+    考虑Hamilton量对于时间的导数，同时带入正则方程：
+    \begin{equation}
+        \frac {\mathrm{d}H}{\mathrm{d}t} = \frac {\partial H}{\partial x} \dot{x} + \frac {\partial H}{\partial p} \dot{p} + \frac {\partial H}{\partial t} = \frac {\partial H}{\partial t} = 0
+    \end{equation}
+    \par 
+    在谐振子模型中，Hamilton函数不显含时间，故
+    \begin{equation}
+        \frac {\mathrm{d}H}{\mathrm{d}t} = 0
+    \end{equation}
+    这个体系可以在\textbf{相空间}
+    \footnote{相空间就是Hamilton方程中独立变量所张成的空间}
+    中描述，即把它的状态画在$(x,p)$二维平面上，观察系统的代表点随时间的运动.
+    显然谐振子体系在相空间中的轨迹是一个椭圆：
+    \begin{equation}
+        \frac{p^2}{2m} + \frac 12 kx^2 = E_0
+    \end{equation}
+    其中$E_0$由初始状态决定.由于之前已经解出谐振子的运动方程，容易得到运动的周期：
+    \begin{equation}
+        T = \frac{2\pi}{\omega}
+    \end{equation}
+    \par 
+    但是，对于任意的满足能量守恒的体系，其在相空间中的轨迹不一定是一条封闭的曲线（即并不是所有的运动
+    都是周期的，尤其是对于高维的问题），在一些情况下有可能充满相空间的某个区域.常见的例子有中心力场
+    \cite{Landau2007mechanics}、二维谐振子等\cite{B2006经典力学的数学方法}，这里给出一个简单的例子.考虑一个二维的谐振子，其Hamilton量
+    为：
+    \begin{equation}
+        H = \frac{1}{2m}(p_1^2 + p_2^2) + \frac{m}{2}(\omega_1^2x_1^2 + \omega_2^2x_2^2)
+    \end{equation}
+    可以解出运动方程为：
+    \begin{equation}
+        \begin{split}
+            x_1 &= A_1\cos(\omega_1 t + \phi_1)\\
+            x_2 &= A_2\cos(\omega_2 + \phi_2)
+        \end{split}
+    \end{equation}
+    可以看出，如果$\omega_1 / \omega_2$为一个有理数，那么上面的运动（参数方程所代表的二维曲线）就是
+    有周期的；如果是无理数，那么曲线应该在某个区域内是稠密的（没有周期）.
+    \par
+    现在考虑质量是$x,p$的函数，即$m_\mathrm{eff}(x,p)$, 在这种情况下Hamilton函数为
+    \begin{equation}
+        H(x,p) = \frac {p^2}{2m_\mathrm{eff}(x,p)} + V(x)
+    \end{equation}
+    在这种情况下的运动方程为：
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= \frac {\partial H}{\partial p} = \frac {p}{2m_{\mathrm{eff}}} - \frac {p^2}{2m_{\mathrm{eff}^2}} \frac {\partial m_\mathrm{eff}}{\partial p} \\
+            \dot{p} &= -\frac {\partial H}{\partial x} = \frac {p^2}{2m_\mathrm{eff}^2} \frac {\partial m_\mathrm{eff}}{\partial x} + \frac {\partial V}{\partial x}
+        \end{split}
+    \end{equation}
+    这种情况下能量仍然守恒，因为Hamilton函数不显含时间.
+    \subsection{Hamilton 方程的数值解法}
+    容易想象（从上面的习题同样可以看出），对于一般的力学系统，给出运动方程的解析形式非常困难，这时候就要求
+    我们通过一些其他的手段来获取运动方程的信息，一个常用的方法是数值求解.数值求解的基本思路是用有限差分
+    代替微分，然后利用计算机来求解差分方程.对于同一个微分方程，可以设计不同的差分格式，它们在极限情况下
+    （步长趋于0）都会回到原来的微分方程，但是在步长有限的情况下，这些差分方程对于问题的描述可能会有明显
+    的差异，这里只做简单的介绍.首先考虑一般形式微分方程的初值问题：
+    \begin{equation}
+        \begin{split}
+            \dv{x}{t} &= f(x, t) \\
+            x(t_0) &= x_0
+        \end{split}
+    \end{equation}
+    \subsubsection{Euler 法}
+    考虑使用有限差分代替微分：
+    \begin{equation}
+        \dv{x}{t} = f(x, t) \approx \frac{x(t + h) - x(t)}{h}
+    \end{equation}
+    将上式改写为递推的形式：
+    \begin{equation}
+        x_{n+1} = x_n + h\cdot f(x_n, t_n)
+    \end{equation}
+    只要知道初始条件，上式可以不断递推.上面的方法称为向前欧拉法，是一种显式的单步算法.
+    \footnote{
+        单步：可以通过$x_n$的数值计算$x_{n+1}$的数值；显式：如果$x_n+1$只需要$x_{m<n}$的数值计算
+    }
+    相应的有向后欧拉法：
+    \begin{equation}
+        x_{n+1} = x_n + h\cdot f(x_{n+1}, t_{n+1})
+    \end{equation}
+    这是一个隐式的单步算法，需要在知道$f$的具体形式后从上式中反解$x_{n+1}$.
+    \subsubsection{Runge-Kutta 法}
+    \paragraph{二阶 Runge-Kutta 法}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                k_1 &= h\cdot f(x_n, t_n)\\
+                k_2 &= h\cdot f(x_n + \frac{1}{2}k_1, t_n + \frac{1}{2}h)\\
+                x_{n+1} &= x_n + k_2 + O(h^3)
+            \end{split}
+        \right.
+    \end{equation}
+    \paragraph{四阶 Runge-Kutta 法}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                k_1 &= h\cdot f(x_n, t_n)\\
+                k_2 &= h\cdot f(x_n + \frac{1}{2}k_1, t_n + \frac{1}{2}h)\\
+                k_3 &= h\cdot f(x_n + \frac{1}{2}k_2, t_n + \frac{1}{2}h)\\
+                k_4 &= h\cdot f(x_n + k_3, t_n + h)\\
+                y_{n + 1} &= y_n + \frac{1}{6}k_1 + \frac{1}{3}k_2 + \frac{1}{3}k_3 + \frac{1}{6}k_4 + O(h^5)
+            \end{split}
+        \right.
+    \end{equation}
+    Runge-Kutta法是一种常用的精度较高的单步算法，在同样的$t$步长下拥有比Euler法更高的精度.
+    \footnote{
+        关于差分格式的误差估计与稳定性分析这里无法展开讨论，应参考相关书籍
+    }
+    对于常微分方程组，只用将上述差分格式中的$k_i, x_n, f$改为向量即可.
+    \subsubsection{velocity-Verlet 方法}
+    容易想象，前几种方法求解微分方程时每一步误差都会累积，一定时间后数值解就会与真实解产生明显
+    偏离.由于Hamilton方程具有比一般微分方程更加丰富的性质，这就意味着有可能存在适用于Hamilton系统
+    的差分方案，它可以保持Hamilton系统中的一些守恒量
+    \footnote{
+        可以通过数值计算验证无论是Euler法还是Runge-Kutte法都不能保证演化过程中系统的能量稳定
+    }，从而在相当长时间内给出较为精确
+    的数值解
+    \footnote{
+        当然，保证了能量守恒并不一定能保证数值解在任意时刻都可以与真实解任意接近.
+    }，下面给出的velocity—Verlet方法就是这样一个差分格式.这里只给出一维系统的例子，容易推广到任意维
+    系统.假设系统的哈密顿量为：
+    \begin{equation}
+        H = \frac{p^2}{2m} + V(x)
+    \end{equation}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                p_{j+0.5} &= p_j - \frac{\Delta t}{2}\left.\pdv{V}{x}\right|_{x = x_j}\\
+                x_{j+1} &= \frac{p_{j+0.5}}{m}\Delta t + x_{j}\\
+                p_{j+1} &= p_{j+0.5} - \frac{\Delta t}{2}\left.\pdv{V}{x}\right|_{x=x_{j+1}}
+            \end{split}
+        \right.
+    \end{equation}
+    可以写程序验证，至少对于一维四次方势系统，velocity-Verlet方法给出的数值解能量是稳定的.
+
+    \section{Hamilton力学的应用：多自由度小振动}
+    \subsection{将平衡位置附近的势能函数展开为二次型}
+    多自由度小振动是Hamilton力学的一个重要应用。
+    
+    考虑\ce{H2O}分子的振动.它总共有3个原子, 所以有9个运动自由度.质心平动3个自由度, 
+    刚性转动也有3个自由度, 因此振动是3个自由度.
+    \footnote{
+    3个振动自由度分别为剪切振动、对称伸缩振动和不对称伸缩振动.
+    水分子的O-H振动波数约为3700 cm$^{-1}$, 剪切振动波数约为1600 cm$^{-1}$, 
+    伸缩振动1个周期应当约为20.8 fs, 剪切振动周期约为9 fs. 而1 a.u. = 0.024 fs.即可据此估计模拟过程中的时间步长.\\
+    多原子分子的振动问题比表面上看起来更加复杂.对于刚体, 
+    有三个平动自由度与三个转动自由度, 可以通过描述质心坐标与刚体的旋转
+    （特殊正交矩阵描述, 3个自由度）来确定整个刚体的运动.对于分子来说, 振动和转动
+    通常是耦合的, 并不能严格定义转动自由度, 但是在\textbf{小振动}的情形下, 可以分离
+    平动、转动、振动自由度, 略微下详细的讨论可以参见\cite{Landau2007mechanics}, 
+    这里不再展开.
+    }
+    对于水分子, 定义每个原子的坐标为：
+    \begin{equation}
+        \begin{split}
+        \bm{x} = 
+        \begin{pmatrix}
+            \bm{x}_\mathrm{O}\\
+            \bm{x}_{\mathrm{H1}}\\
+            \bm{x}_{\mathrm{H2}}
+        \end{pmatrix}
+    \end{split}
+    \end{equation}
+    其中$\bm{x}_\mr{O}$表示氧原子O在三维空间中的Descartes坐标, 其他以此类推.
+    给定原子核运动的势能$V(\bm{x})$, 定义质量矩阵：
+    \begin{equation}
+        \begin{split}
+        \bm{M} = \mathrm{diag} \{m_1,...,m_9 \} = 
+        \begin{pmatrix}
+            m_1 & \cdots & 0\\
+            \vdots & \ddots & \vdots\\
+            0 & \cdots & m_9
+        \end{pmatrix}
+        \label{mass matrix}
+    \end{split}
+    \end{equation}
+    其中, $m_1,m_2,m_3$等于氧原子的质量, $m_4,...,m_9$等于氢原子的质量.那么可以将
+    系统的动量表示为：
+    \begin{equation}
+        \bm{p} = \bm{M}\cdot\dot{\bm{x}}
+    \end{equation}
+    仿照一维系统的Hamilton量, 可以写出这个多维系统的Hamilton量：
+    \begin{equation}
+        H(\bm{x}, \bm{p}) = \frac{1}{2}\bm{p}^{\mr{t}}\bm{M}^{-1}\bm{p} + V(\bm{x})
+    \end{equation}
+    理论上, 只要给出势能函数的形式, 就可以完全讨论系统的运动.但是对于系统在平衡位置
+    \footnote{一般都是指稳定平衡位置, 即当系统偏离平衡点的距离非常微小时, 
+    系统有回到平衡位置的运动趋势, 数学上对应势能函数的\textbf{极小值点}
+    }附近的运动, 通常采用\textbf{小振动近似}来得到系统在平衡位置附近运动的解析表达式.
+    假设平衡位置为$\bm{x_{\mr{eq}}}$, 那么在平衡点邻域内的函数值可以按照Taylor展开写为：
+    \begin{equation}
+        \begin{split}
+        V(\bm{x_{\mr{eq}}} + \bm{q}) &= V(\bm{x_{\mr{eq}}}) + \left.\pdv{V}{\bm{x}}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}^{\mr{t}}\bm{q}
+         + \frac{1}{2}\bm{q}^{\mr{t}}\left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x_{\mr{eq}}}}\bm{q} + o(\left|\bm{q}\right|^2)\\
+        \end{split}
+    \end{equation}
+    在平衡位置$\dps\left.\pdv{V}{\bm{x}}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}$
+    为0（从数学上讲, 这是函数极小值点的性质；从物理上讲, 平衡位置处系统不受力）；
+    同时常数项不会影响运动方程, 可以不予考虑；如果在$\bm{q}$比较小时, 忽略2阶以上的项
+    \footnote{这就是小振动近似, 但是前提我们假设了Taylor展开的二阶项存在.但是, 
+    对于稳定平衡（极小值点）附近的Taylor展开, 完全可能出现二阶项为0的情形, 
+    比如势能是四次函数, 这时使用小振动图像得到的结论就会完全出错.
+    }
+    , 那么就可以将势能函数重写为：
+    \begin{equation}
+        V(\bm{q}) = \frac{1}{2}\bm{q}^{\mr{t}}\left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}\bm{q}
+        \label{potential at equilibrium point}
+    \end{equation}
+    定义矩阵（即\textbf{Hessian矩阵}，通常而言是一个半正定
+    \footnote{
+        一般而言这个矩阵一定有0作为特征值.因为分子在某些
+        自由度运动时（刚性转动、质心平动）分子的势能不变, 这说明在势能极小值处
+        沿着某些方向运动时势能函数恒定.可以说明代表分子整体平移的矢量是此矩阵特征值为0
+        的特征向量, 但是对于分子的转动, 不一定会对应一个特征值为0的特征向量？
+    }
+    的实对称矩阵）：
+    \begin{equation}
+        \bm{K} = \left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}
+        \label{potential matrix}
+    \end{equation}
+    那么系统在平衡位置的Hamilton量可以写为：
+    \begin{equation}
+        H(\bm{q}, \bm{p}) = \frac{1}{2}\bm{p}^{\mr{t}}\bm{M}^{-1}\bm{p} + \frac{1}{2}\bm{q}^{\mr{t}}\bm{K}\bm{q}
+        \label{the Hamiltonian of samll vibration}
+    \end{equation}
+    其中$\bm{q}$为：
+    \begin{equation}
+        \bm{q} = \bm{x} - \bm{x_{\mr{eq}}}
+    \end{equation}
+    表示偏移平衡点的位移.
+
+    \subsection{简正坐标}
+    对于更一般的情况, 质量矩阵$\bm{M}$不一定是对角的, 但一定是实对称且正定的矩阵
+    \footnote{对于非直角坐标, 比如在某些约束下定义的广义坐标, $\bm{M}$并不对角, 
+    但是由于动能只可能是正值, 所以$\bm{M}$一定正定}
+    , 这样就可以唯一地定义它正定的平方根$\bm{M}^{\frac{1}{2}}$
+    \footnote{这也是一个实对称矩阵, 结论可以通过对角化这个矩阵来理解, 
+    详细的证明要参考线性代数教材}, 
+    将Hamilton量\ref{the Hamiltonian of samll vibration}写为
+    （至于为什么要这么改写, 在Lagrange力学部分会详细解释）：
+    \begin{equation}
+        H(\bm{q},\bm{p}) = \frac{1}{2}\left(\bm{M}^{-\frac{1}{2}}\bm{p}\right)^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p} + 
+        \frac{1}{2}\left(\bm{M}^{\frac{1}{2}}\bm{q}\right)^{t}\bm{M}^{-\frac{1}{2}}\bm{K}\bm{M}^{-\frac{1}{2}}\left(\bm{M}^{\frac{1}{2}}\bm{q}\right)
+    \end{equation}
+    定义\textbf{质量加权的Hessian矩阵}$\bm{\mathcal{H}}$为 
+    \begin{equation}
+        \begin{split}
+            \bm{\mathcal{H}} = \bm{M}^{-\frac{1}{2}}\bm{K}\bm{M}^{-\frac{1}{2}}
+        \end{split}
+        \label{Hessian matrix}
+    \end{equation}
+    它的量纲为s$^{-2}$. 这是一个实对称矩阵, 可以由正交矩阵作对角化：
+    \begin{equation}
+        \bm{\mathcal{H}} = \bm{S}^\mm{T}\bm{\Omega}\bm{S}
+    \end{equation}
+    其中$\bm{\Omega}$为一个对角矩阵, $\bm{S}$为\textbf{正交矩阵}
+    \footnote{
+        正交矩阵满足: 
+    \begin{equation}
+        \bm{S}^\mathrm{T}\bm{S} = \bm{SS}^\mathrm{T} = \bm{I}
+    \end{equation}
+    }
+    , 其列向量为$\bm{\mathcal{H}}$的特征向量, 
+    令：
+    \begin{equation}
+        \bm{\Omega} = \mathrm{diag} \{\omega_1^2, \dots, \omega_N^2 \}
+    \end{equation}
+    这样就得到了$N$个（$N$为系统的总自由度数目）具有频率量纲的常数, 后面会讨论
+    其物理含义.利用上面定义的矩阵, 可以继续改写系统的Hamilton量：
+    \begin{equation}
+        H(\bm{q},\bm{p}) = \frac{1}{2}\left(\bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}\right)^\mr{t}\left(\bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}\right) + 
+        \frac{1}{2}\left(\bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\right)^{t}\bm{\Omega}\left(\bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\right)
+    \end{equation}
+    利用上面Hamilton量的形式, 定义如下相空间中的\textbf{坐标变换}（简正坐标变换）：
+    \begin{equation}
+        \left\{
+        \begin{split}
+            \bm{Q} &= \bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\\
+            \bm{P} &= \bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}
+        \end{split}
+        \right.
+        \label{normal mode transformation}
+    \end{equation}
+    这样就可以将Hamilton量表示为：
+    \begin{equation}
+        \begin{split}
+        H(\bm{Q},\bm{P}) &= \frac{1}{2}\bm{P}^{\mr{t}}\bm{P} + \frac{1}{2}\bm{Q}^{\mr{t}}\bm{\Omega}\bm{Q}\\
+        & = \frac{1}{2}\sum_{i=1}^{N}P_{i}^2 + \frac{1}{2}\sum_{i=1}^{N}\omega_{i}^2Q_{i}^{2}
+        \end{split}
+    \end{equation}
+    表面上看起来这是$N$个不耦合（之间没有相互作用）的简谐振子的Hamilton量, 将其
+    带入Hamilton正则方程就可以得到$N$个独立谐振子的运动方程（在第一章
+    中我们已经讨论过）.\textbf{但是}, 
+    这里忽略了一个重要的问题：我们无法保证坐标变换之后的新变量$(\bm{Q},\bm{P})$
+    与对应的Hamilton量$H(\bm{Q},\bm{P})$满足Hamilton方程.
+
+    \splitline
+
+    在此处\textbf{不打算}完全解决这个问题, 而是给出此问题的一个严谨的表述, 
+    目的是清楚地认识到简正坐标变换并不是随意进行的, 而是一种特殊的变换.
+    考虑系统A的运动可以由Hamilton量$H(\bm{q},\bm{p},t),\,\,(\bm{q},\bm{p})\in\mathbb{R}^{2N}$
+    与对应的Hamilton方程来描述, 定义相空间中的一个可逆变换：$\rho:(\bm{q},\bm{p})\mapsto(\bm{Q}, \bm{P}),\,\,\mathbb{R}^{2N}\to\mathbb{R}^{2N}$
+    （其中$t$为时间, 也可以将其理解为任意参数）
+    \begin{equation}
+        \left\{
+        \begin{split}
+            Q_i &= Q_i(\bm{q},\bm{p}, t)\\
+            P_i &= P_i(\bm{q}, \bm{p}, t)
+        \end{split}
+        \right.
+    \end{equation}
+    这样的变换可以很丰富, 比前面讨论的简正坐标变换\ref{normal mode transformation}, 
+    就是相空间中不包含时间的一个线性变换；还有在第二章讨论过的Hamilton方程的解所定义的
+    不同时刻轨线上的点之间的映射
+    $\phi^{\tau}:(\bm{q}_{t},\bm{p}_{t})\mapsto(\bm{q}_{t+\tau},\bm{p}_{t+\tau})$.
+    如果存在一个函数$K(\bm{Q}, \bm{P}, t)$能够让变换之后的坐标满足
+    （即$K(\bm{Q}, \bm{P}, t)$\textbf{对应的}Hamilton方程等价于
+    $H(\bm{q},\bm{p},t)$
+    \textbf{对应的}Hamilton方程所描述的运动）：
+    \begin{equation}
+        \left\{
+        \begin{split}
+            \dot{Q_i} &= \pdv{K}{P_i}\\
+            \dot{P_{i}} &= -\pdv{K}{Q_i}
+        \end{split}
+        \right.
+    \end{equation}
+    那么称这样的变换为\textbf{正则变换}, 前面提到的两种变换都是正则变换.
+    \footnote{
+        一个变换是正则变换的充要条件是满足：
+        \begin{equation}
+            \left[\pdv{(\bm{Q},\bm{P})}{(\bm{q}, \bm{p})}\right]^{\mr{t}}\bm{J}\pdv{(\bm{Q},\bm{P})}{(\bm{q}, \bm{p})} = \bm{J}
+        \end{equation}
+        其中$\pdv{(\bm{Q},\bm{P})}{(\bm{q}, \bm{p})}$是正则变换的Jacobi矩阵, 它可以是时间的函数, $\bm{J}$为
+        标准辛矩阵.可以通过这个验证文中所述的变换为正则变换.
+        正则变换极大地拓展了Hamilton力学的内涵, 导出了很多在数学和物理上有深刻意义的结论, 
+        比如之前详细讨论的Liouville定理, 就可以看作是正则变换不改变相空间体积的一个特例, 
+        详细的介绍可以参考\cite{Goldstein2000Classical}.
+    }
+    对于相空间中的任意变换, “新Hamilton量”$K$的存在性是无法保证的, 为了说明这一点, 
+    直接计算新坐标对于时间的导数（方便起见, 此处使用求和约定）：
+    \begin{equation}
+        \left\{
+            \begin{split}
+                \dot{Q_i} &= \pdv{Q_i}{q_{j}}\dot{q_{j}} + \pdv{Q_i}{p_j}\dot{p_j}
+                + \pdv{Q_i}{t} = \{Q_i, H\}_{\bm{q},\bm{p}} + \pdv{Q_i}{t}\\
+                \dot{P_i} &= \pdv{P_i}{q_{j}}\dot{q_{j}} + \pdv{P_i}{p_j}\dot{p_j}
+                + \pdv{P_i}{t} = \{P_i, H\}_{\bm{q},\bm{p}} + \pdv{P_i}{t}
+            \end{split}
+        \right.
+        \label{the derivative of new coordinate}
+    \end{equation}
+    等式\ref{the derivative of new coordinate}右边为$(\bm{q},\bm{p},t)$的函数, 可以想象
+    , 对于任意的变换, 并不一定可以找到$K(\bm{Q},\bm{P},t)$使得等式右边与
+    $\pdv{K}{P_{i}},-\pdv{K}{Q_i}$对应相等.
+    
+    \splitline
+
+    现在回到水分子的振动问题, 水分子的势能函数在平衡位置附近可以展开为二次型：
+    \begin{equation}
+        \begin{split}
+        V(\bm{x}) &= V(\bm{x}_\mathrm{eq}) + \frac 12 (\bm{x-x}_\mathrm{eq})^\mathrm{t} \bm{V}^{(2)} (\bm{x-x}_\mathrm{eq})\\
+        &= V(\bm{x}_\mathrm{eq}) + \frac 12 (\bm{x-x}_\mathrm{eq})^\mathrm{t} \mb{M}^{\frac 12}\bm{\mathcal{H}} \mb{M}^{\frac 12} (\bm{x-x}_\mathrm{eq})\\
+        &= V(\bm{x}_\mathrm{eq}) + \frac 12 (\bm{x-x}_\mathrm{eq})^\mathrm{t} \mb{M}^{\frac 12} \mb{S}\bm{\Omega} \mb{S}^\mathrm{t} \mb{M}^{\frac 12} (\bm{x-x}_\mathrm{eq})
+        \end{split}
+    \end{equation}
+    其中：
+    \begin{equation}
+        \left[\bm{V}^{(2)}\right]_{i,j} := \left.\pdv{^2 V}{x_i\partial x_j}\right|_{x_{eq}}
+    \end{equation}
+    定义\textbf{简正坐标}$\bm{Q}$：
+    \begin{equation}
+        \bm{Q} = \mathbf{S}^\mathrm{t} \mb{M}^{\frac 12} (\bm{x-x}_\mathrm{eq})
+    \end{equation}
+    于是平衡点附近的势能面可以近似表达为：
+    \begin{equation}
+        V(\bm{Q}) = V(\bm{0}) + \frac 12 \bm{Q}^\mathrm{t} \bm{\Omega Q} = V(\bm{0}) + \sum_{j=1}^N \frac 12 \omega_j^2 Q_j^2
+    \end{equation}
+
+    \subsection{简正坐标和Cartesian坐标的关系}
+    上一节讨论了简正坐标变换.这一节讨论三个问题：1.如何用简正坐标表示系统的物理量, 2.
+    验证简正坐标依然满足Hamilton方程, 3.给定直角坐标的初始条件, 如何通过简正坐标
+    求解系统的运动方程.
+
+    \splitline
+
+    在Cartesian坐标系下系统的动量可以表示为：
+    \begin{equation}
+        \begin{split}
+        \bm{p} &= \mb{M}\dot{\bm{q}} = \mb{M}^{\frac 12} \mb{S}\dot{\bm{Q}}\\
+        \bm{p} &= \mb{M}^{\frac{1}{2}}\mb{S}\bm{P}
+        \end{split}
+    \end{equation}
+    简正坐标中的动量定义为
+    \footnote{
+        注意这里的动量为“\textbf{正则动量}”, 并不是系统真实的动量.
+        由于正则变换的存在, 原有的广义坐标与广义动量在变换后会被混合, 以至于完全
+        失去了“坐标”与“动量”的原有含义, 甚至不具有坐标和动量的量纲, 
+        因此在Hamilton力学中不再严格区分坐标与动量, 而是将$(\bm{Q}, \bm{P})$
+        合称为正则共轭变量.\\
+        可以选取变换：
+        \begin{equation}
+            \left\{
+                \begin{split}
+                    Q_{i} &= p_i\\
+                    P_{i} &= -q_i
+                \end{split}
+            \right.
+        \end{equation}
+        将原本的动量与坐标互换.
+    }
+    ：
+    \begin{equation}
+        \bm{P} = \mb{S}^\mr{t} \mb{M}^{-\frac 12} \bm{p}
+    \end{equation}
+    可以得到动能在简正坐标下的表达式：
+    \begin{equation}
+        \begin{split}
+        E_{k} &= \frac{1}{2}\bm{p}^{\mr{t}}\mb{M}^{-1}\bm{p} = \frac{1}{2}\dot{\bm{Q}}^{\mr{t}}\dot{\bm{Q}}\\
+        E_{k} &= \frac{1}{2}\bm{p}^{\mr{t}}\mb{M}^{-1}\bm{p} = \frac{1}{2}\bm{P}^{\mr{t}}\bm{P}
+        \end{split}
+    \end{equation}
+    总结简正坐标和Cartesian坐标之间的变换：
+    \begin{equation}
+        \begin{aligned}
+        \bm{Q} &= \mb{S}^\mathrm{t} \mb{M}^{\frac 12} (\bm{x-x}_\mathrm{eq})\\
+        \bm{P} &= \mb{S}^\mathrm{t} \mb{M}^{-\frac 12} \bm{p}\\
+        \bm{x} &= \bm{x}_\mathrm{eq} + \mb{M}^{-\frac 12}\mb{S}\bm{Q}\\
+        \bm{p} &= \mb{M}^{\frac 12}\mb{S}\bm{P}
+        \end{aligned}
+        \label{normal mode and cartesian coordinate}
+    \end{equation}
+
+    \splitline
+
+    有了简正坐标与Cartesian坐标之间的变换, 可以得到简正坐标下的Hamilton量（前一节已经给出）：
+    \begin{equation}
+        H = \frac 12 \bm{P}^\mathrm{t}\bm{P} + \frac 12 \bm{Q}^\mathrm{t} \bm{\Omega Q}
+    \end{equation}
+    使用Hamilton正则方程, 可以得到简正坐标下的运动方程：
+    \begin{equation}
+        \begin{aligned}
+            \bm{\dot{Q}} &= \frac {\partial H}{\partial \bm{P}} = \bm{P}\\
+            \bm{\dot{P}} &= -\frac {\partial H}{\partial \bm{Q}} = -\bm{\Omega Q}
+        \end{aligned}
+        \label{equation of motion in normal mode coordinate}
+    \end{equation}
+    上式也可以写为分量的形式：
+    \begin{equation}
+        \begin{aligned}
+            \dot{Q}_j &= P_j\\
+            \dot{P}_j &= - \omega_j^2 Q_j
+        \end{aligned}
+    \end{equation}
+    前一节中已经指出, 相空间中的任意变换并不能够保证Hamilton方程的不变, 这里验证一下
+    简正坐标变换下Hamilton方程的不变性.首先根据Cartesian坐标下的Hamilton量给出运动方程：
+    \begin{equation}
+        \begin{split}
+            \dot{\bm{q}} &= \pdv{H}{\bm{p}} = \mb{M^{-1}}\bm{P}\\
+            \dot{\bm{p}} &= -\pdv{H}{\bm{q}} = -V^{(2)}\bm{q}
+        \end{split}
+        \label{equation of motion in cartesian coordiante}
+    \end{equation}
+    上式同样可以写为分量形式：
+    \begin{equation}
+        \begin{aligned}
+            \dot{x}_i &= \frac {p_j}{m_i}\\
+            \dot{p}_i &= \sum_j \frac {\partial^2 V}{\partial x_i \partial x_j} (x_j - x_\mathrm{eq}^{(j)})
+        \end{aligned}
+    \end{equation}
+    这要比在简正坐标下的形式要复杂很多.
+    将简正坐标变换\ref{normal mode and cartesian coordinate}
+    带入Cartesian坐标下的运动方程\ref{equation of motion in cartesian coordiante}, 可以得到
+    简正坐标下的运动方程\ref{equation of motion in normal mode coordinate}, 这样就验证了
+    简正坐标变换保证了Hamilton方程的不变.
+
+    \splitline
+
+    如果给定0时刻时系统在Cartesian坐标下的初始条件$(\bm{x}(0),\bm{p}(0))$, 
+    可以根据简正坐标变换给出在简正坐标下的初始条件
+    （同时考虑了质量矩阵为对角矩阵这种常见的情形）：
+    \begin{equation}
+        \begin{aligned}
+            Q_j(0) &=\sum_{i,k} S_{ij} M^{\frac{1}{2}}_{ik}(x_k(0) - x_{\mr{eq},k}) =\sum_i S_{ij} M_{ii}^{\frac 12} (x_i(0) - x_{\mathrm{eq},i})\\
+            P_j(0) &=\sum_{i,k} S_{ij} M^{-\frac{1}{2}}_{ik}p_k(0)=\sum_i S_{ij} M_{ii}^{-\frac 12} p_{i}(0)
+        \end{aligned}
+    \end{equation}
+    根据正则方程可以解出简正坐标下的运动方程：
+    \begin{equation}
+        \begin{aligned}
+            Q_j(t) &= Q_j(0)\cos{\omega_j t} + \frac{P_j(0)}{\omega_j} \sin{\omega_j t}\\
+            P_j(t) &= P_j(0)\cos{\omega_j t} - \omega_j Q_j(0) \sin{\omega_j t}
+        \end{aligned}
+    \end{equation}
+    再根据简正坐标变换得到Cartesian坐标下的运动方程, 这样就利用简正坐标
+    完全求解了小振动的问题, 这里不再给出具体形式.
+
+    \begin{asg}
+        一维四次势中粒子的运动.尝试在给定初始条件的情况下给出解析解；同时尝试用不同的数值
+        方法求解运动方程，比较几种方法的差异（能量是否稳定？）
+    \end{asg}
+    \begin{asg}
+        竖立粉笔的问题.竖立在桌面上的粉笔是否会永远静止？如果不是，请求出粉笔偏离平衡位置的
+        角度的平均值与平方平均值.
+    \end{asg}
+    \begin{asg}
+        证明Hessian矩阵的本征值都是实数.
+    \end{asg}
+    \begin{asg}
+        给定水分子简正坐标下的初始系综密度函数, 求键长、键角
+        的期望和涨落随时间的变化.
+    \end{asg}
+    
+    \bibliographystyle{plain}
+    \bibliography{ref_hamilton}

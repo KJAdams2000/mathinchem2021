@@ -1,0 +1,344 @@
+\chapter{量子力学的相空间形式}
+    \section{统计力学基础回顾}
+
+        在量子统计力学中对于任意一个算符 $\hat{A}$
+        \begin{equation}
+            \langle {\hat{A}} \rangle = \sum_i \left\langle {\psi^{i}(t)} \middle| {\hat{A}} \middle| {\psi^{i}(t)} \right\rangle P_{i}
+        \end{equation}
+        其中$P_i$是体系处于$\psi^{i}(t)$的态上的概率, 且$\sum_i P_i = 1$. 
+        这里实际采取了两重平均: 其一是量子力学上的平均, 即物理量在某个态下的期望
+        $\left\langle {\psi^{i}(t)} \middle| {\hat{A}} \middle| {\psi^{i}(t)} \right\rangle$; 
+        另个一重是热力学上的平均, 表现为某个态出现的概率 $P_{i}$. 
+
+        设$\left. \middle| {\phi_{i}} \right\rangle$ 是一组完备基, 则
+        \begin{equation}\begin{aligned}
+            \langle {\hat{A}} \rangle
+            &= \sum_i \left\langle {\psi^{i}(t)} \middle| {\hat{A}} \middle| {\psi^{i}(t)} \right\rangle P_{i}
+            \\
+            &= \sum_{imn} \left\langle {\psi^{i}(t)} \middle| {\phi_{n}} \right\rangle \left\langle {\phi_{n}} \middle| {\hat{A}} \middle| {\phi_{m}} \right\rangle \left\langle {\phi_{m}} \middle| {\psi^{i}(t)} \right\rangle P_{i}
+            \\
+            &= \sum_{imn} \left\langle {\phi_{n}} \middle| {\hat{A}} \middle| {\phi_{m}} \right\rangle 
+            \left\langle {\phi_{m}} \middle| {\psi^{i}(t)} \right\rangle P_{i}
+            \left\langle {\psi^{i}(t)} \middle| {\phi_{n}} \right\rangle
+        \end{aligned}\end{equation}
+        从中我们可以定义\textbf{统计算符}
+        \begin{equation}
+            \hat{\rho} = \sum_i P_{i} \left. \middle| {\psi^{i}(t)} \right\rangle \left\langle {\psi^{i}(t)} \middle| \right.
+        \end{equation}
+        则有
+        \begin{equation}
+            \langle {\hat{A}} \rangle = \mathrm{Tr}(\hat{\rho}\hat{A})
+        \end{equation}
+
+        如果在某种表象下, 存在某一个态$\psi^{n}(t)$对任意的$i$都有$P_i = \delta_{ni}$, 则称这个系统处于一个\textbf{纯态}; 否则称这个体系处于\textbf{混合态}.
+        纯态的密度算符可以写为$\hat{\rho} = \left. \middle| {\psi^{n}(t)} \right\rangle \left\langle {\psi^{n}(t)} \middle| \right.$. 
+
+        统计算符有如下性质
+        \begin{equation}
+            \mathrm{Tr}\hat\rho = 1, \quad
+            \hat\rho^{\dagger} = \hat\rho, \quad
+            \mathrm{Tr}\hat\rho^{2} \leq 1
+        \end{equation}
+        当且仅当密度矩阵对应的是纯态时, 最后一个式子取等号. 这一性质使用Cauchy不等式可以证明. 
+
+        \splitline
+
+        根据我们熟悉的经典统计物理, 物理量的系综平均为
+        \begin{equation}
+            \langle A \rangle = \int \rho(x,p) A(x,p) \mathrm{d}x\mathrm{d}p
+        \end{equation}
+        其中
+        \begin{equation}\begin{aligned}
+            \rho &= \frac 1Z \mathrm{e}^{-\beta H(x,p)}\\
+            Z &= \int \frac 1{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \mathrm{d}x \mathrm{d}p
+        \end{aligned}\end{equation}
+
+    \section{寻找量子相空间的定义}
+
+        能否将量子统计力学中求物理量期望值的公式写成与经典统计物理相同的形式? 
+        这个问题粗看似乎不太可能: 要把算符写成$x$与$p$的函数似乎就意味着在指定$x$与$p$下得到算符的"值", 
+        而在量子力学框架下我们无法同时确定粒子的位置与动量. 
+        
+        不过，让我们从量子配分函数的定义出发：
+        \[
+            Z = \Tr{\e^{-\beta \hat{H}}}
+        \]
+        对照经典的配分函数：
+        \[
+            Z = \int \frac {1}{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \mathrm{d}x \mathrm{d}p
+        \]
+
+        在经典情形下，系综密度函数可以向上述经典配分函数中乘上一个\(\delta\)函数得到。
+        比如说：
+        \[
+            \begin{gathered}
+                \rho_X(x') = \int \frac 1{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \delta(x - x') \mathrm{d}x \mathrm{d}p
+                \\
+                \rho_P(p') = \int \frac 1{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \delta(p - p') \mathrm{d}x \mathrm{d}p
+            \end{gathered}
+        \]
+        同时，也有
+        \[
+            \rho(x', p') = \int \frac 1{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \delta(x - x')\delta(p - p') \mathrm{d}x \mathrm{d}p
+        \]
+        这两个\(\delta\)函数的次序可以交换，因为此时\(x, p\)都是数或向量。
+
+        因此，在量子情形下，我们可以对位置和动量分别干类似的事情，只不过将数或向量替换为算符即可：
+        \[
+            \begin{gathered}
+                \rho_X(x') = \Tr{\e^{-\beta\hat{H}}\delta(\hat{x} - x')}
+                \\
+                \rho_P(p') = \Tr{\e^{-\beta\hat{H}}\delta(\hat{p} - p')}
+            \end{gathered}
+        \]
+        其中，算符的\(\delta\)函数应该在该算符本征态上求迹的意义下理解：
+        \[
+            \begin{aligned}
+                \rho_X(x') &= \Tr{\e^{-\beta\hat{H}}\delta(\hat{x} - x')} 
+            \\ &= \int \dd x \braket{x | \e^{-\beta\hat{H}}\delta(\hat{x} - x') | x}
+            \\ &= \braket{x' | \e^{-\beta\hat{H}} | x'}
+            \end{aligned}
+        \]
+
+        但是，如果要定义联合的密度分布，则此时会遇到麻烦。两个不对易的算符，其\(\delta\)函数此时是无法交换的：
+        \[
+            \Tr{\e^{-\beta\hat{H}}\delta(\hat{x} - x')\delta(\hat{p} - p')} \neq \Tr{\e^{-\beta\hat{H}}\delta(\hat{p} - p')\delta(\hat{x} - x')}
+        \]
+        这是因为，如果我们将\(\delta\)函数以其Fourier展开的形式写出来：
+        \[
+            \delta(\hat{x} - x')\delta(\hat{p} - p') = \frac{1}{(2\pi)^2} \int \dd k \dd \xi \e^{\ii k(\hat{x} - x')}\e^{\ii \xi (\hat{p} - p')}
+        \]
+        会发现，由Glauber公式，有
+        \[
+            \e^{\ii k(\hat{x} - x')}\e^{\ii \xi (\hat{p} - p')} = \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')} \e^{\frac{-\ii\hbar k\xi}{2}}
+        \]
+        而
+        \[
+            \e^{\ii \xi (\hat{p} - p')}\e^{\ii k(\hat{x} - x')} = \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')} \e^{\frac{\ii\hbar k\xi}{2}}
+        \]
+        说明这两者是不相等的。因此，似乎对于这个量子相空间的密度函数，出现了不同的定义。
+        事实上我们还可以定义密度函数如下：
+        \[
+            \Tr{\e^{-\beta\hat{H}}\delta(\hat{x} - x', \hat{p} - p')}
+        \]
+        其中用到了简记
+        \[
+            \delta(\hat{x} - x', \hat{p} - p') = \frac{1}{(2\pi)^2} \int \dd k \dd \xi
+            \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')}
+        \]
+
+        因此，似乎密度函数的定义不是唯一的。这种不唯一性来自于位置和动量算符的不对易性。
+        由于不对易关系的存在，不能找到一个唯一的由物理量到算符的映射。
+
+        将这个问题稍加推广，量子相空间的定义问题可以拓展如下：
+        考虑算符空间到物理量空间的任意映射核\(K(\hat{x} - x', \hat{p} - p')\)，其是函数\(f(k, \xi)\)的类似Fourier变换的形式：
+        \[
+            K(\hat{x} - x', \hat{p} - p') = \frac{1}{(2\pi)^2} \int \dd k \dd \xi \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')} f(k, \xi)
+        \]
+        如果它能够生成合适的相空间，需要让这个映射核作用在Boltzmann算符上以后，求迹后积分得到原来的配分函数\(Z\)。
+        \[
+            \int \dd x' \dd p' \Tr{\e^{-\beta\hat{H}}K(\hat{x} - x', \hat{p} - p')} = \Tr{\e^{-\beta\hat{H}}} = Z
+        \]
+        这也就要求了
+        \[
+            \int \dd x' \dd p' K(\hat{x} - x', \hat{p} - p') = \hat{I}
+        \]
+        
+        我们希望把上述对\(K\)的限制转化为对\(f(k, \xi)\)的限制。
+        作为本课程的一道作业题，请读者利用\(\delta\)函数的Fourier变换表示，完成：
+
+        \begin{asg}
+            证明：文中\(f(k, \xi)\)应当满足的条件是：\(f(0, 0) = 1\)。这说明了量子相空间的定义不是唯一的。
+        \end{asg}
+
+        \splitline
+        
+    对Boltzmann算符讨论的结果可以扩展到任意情形。
+    上文中对Boltzmann算符，我们找到了映射关系\(\rho(x, p)\leftarrow \hat{\rho}\)，使得对于量子情形有
+    \[
+        Z = \int \dd x \dd p \rho(x, p) = \Tr{\rho}
+    \]
+    
+    对算符\(\hat{\rho}\)的讨论可以推广到任意算符\(\hat{A}\)上。定义映射：
+    \[
+        A(x, p) = \Tr{\hat{A} \hat{K}(x, p)} = \Tr{
+            \hat{A} \int \frac{\dd k \dd \xi}{(2\pi)^2}  \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')} f(k, \xi)
+            }
+    \]
+    则此时下式即可成立：
+    \[
+        \Tr{\hat{A}} = \int \dd x \dd p A(x, p)
+    \]
+
+    然而我们不满足于此。为了使得量子相空间具有物理意义，我们必须设法对物理量的期望值的表示：
+    \[
+        \braket{A} = \frac{1}{Z} \Tr{\hat{\rho}\hat{A}}
+    \]
+    也找到相应的相空间对应。因此必须考虑两个算符的迹如何表示的问题。
+    
+    可以证明，对于算符\(\hat{A}, \hat{B}\)及其进行上述映射得到的函数\(A(x, p)\)和\(B(x, p)\)，
+    \[\Tr{\hat{A}\hat{B}} = \int \dd x \dd p A(x, p) B(x, p)\]成立当且仅当\(f(k, \xi) \equiv 1\)。
+    以\(f(k, \xi) \equiv 1\)定义的量子相空间密度函数：
+    \[
+        \rho(x, p) = \Tr{
+            \e^{-\beta\hat{H}} \int \frac{\dd k \dd \xi}{(2\pi)^2}  \e^{\ii k(\hat{x} - x') + \ii \xi (\hat{p} - p')}
+            }
+    \]
+    称为\textbf{Wigner 函数}。对于\(f(k, \xi)\)不恒等于1的情形，有
+    \[
+        \Tr{\hat{A}\hat{B}} = \int \dd x \dd p ~ A(x, p) \tilde{B}(x, p)
+    \]
+    其中定义\(\tilde{B}(x, p)\)的量子相空间是定义\(A(x, p)\)的\textbf{对偶空间}，需要满足
+    \[
+        f(k, \xi) \tilde{f}(-k, -\xi) = 1
+    \]
+
+    其他常见的量子相空间密度函数的定义包括 Mehta/Kirkwood 空间、P/Q 空间等。
+    前面定义的\(\Tr{\e^{-\beta\hat{H}}\delta(\hat{x} - x')\delta(\hat{p} - p')}\)
+    和\(\Tr{\e^{-\beta\hat{H}}\delta(\hat{p} - p')\delta(\hat{x} - x')}\)
+    就是Mehta/Kirkwood空间，其对应的\(f(k, \xi)\)分别为\(\e^{-\frac{\ii\hbar k\xi}{2}}\)和\(\e^{\frac{\ii\hbar k\xi}{2}}\)。
+    P/Q空间则对于谐振子尤为有用，是通过上升、下降算符定义的。感兴趣的读者可以阅读文献\cite{quantumphasespace}。
+
+    \section{Wigner函数的解析求解}
+
+    本节以谐振子体系为例，展示Wigner函数的解析求解方法。
+
+    不妨从简单的情形出发，先考虑边缘密度\(\rho_X(x_0) = \Tr{ \e^{-\beta \hat{H}}\delta(\hat{x} - x_0)}\)的求算。
+    这个求迹运算
+    如果在位置的本征空间上展开，会得到传播子\(\braket{x_0 | \e^{-\beta \hat{H}} | x_0}\)，需要用虚时路径积分的方法求解。
+    不过谐振子是一个特殊的体系，我们可以直接在能量的本征空间上展开：
+    \[
+        \rho_X(x_0) = \sum_n \braket{n | \e^{-\beta \hat{H}} \delta(\hat{x} - x_0) | n}
+    \]
+    展开后，有两种思路。一种思路是再插入\(\hat{I} = \dd x \ket{x}\bra{x}\)得到波函数形式，利用Mehler求和公式求算。
+    Mehler求和公式是：
+    \[
+        \sum_{n=0}^{\infty} \frac{\mm{H}_{n}(x) \mm{H}_{n}(y)}{n !}\left(\frac{1}{2} w\right)^{n}
+        =\left(1-w^{2}\right)^{-1 / 2} \exp \left[\frac{2 x y w-\left(x^{2}+y^{2}\right) w^{2}}{1-w^{2}}\right]
+    \]
+    但这种思路需要对特殊函数的性质具有较好的了解，并不方便，并且难以推广到求解联合密度的情形中去。
+
+    因此我们采取第二种思路，即将\(\delta(\hat{x} - x_0)\)展开写，并将e指数上的\(\hat{x}\)用升降算符表示。
+    \begin{equation}\label{trace}
+        \begin{aligned}
+            \Tr{\e^{-\beta \hat{H}}\delta(\hat{x} - x_0)} &= \sum_n \braket{n | \e^{-\beta \hat{H}}\delta(\hat{x} - x_0) | n}
+            \\ &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \dd k \sum_n \braket{n |  \e^{-\beta\hbar\omega(n+\frac{1}{2})} \e^{\ii k \left[\frac{\hbar}{2m\omega}(\hat{a}^\dagger + \hat{a}) - x_0\right]}  | n}
+            \\ &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \dd k ~  \e^{-\ii k x_0 + \frac{\hbar k^2}{4m\omega}} \sum_n\braket{n | \e^{-\beta\hbar\omega(n+\frac{1}{2})} \e^{c\hat{a}} \e^{c\hat{a}^\dagger}  | n}
+        \end{aligned}
+    \end{equation}
+    
+    注意到
+    \[
+        \e^{c\hat{a}^\dagger}\ket{n} = \sum_{m=0}^{\infty} \frac{c^m}{m!}\sqrt{\frac{(n+m)!}{n!}}\ket{n+m}
+    \]
+    所以
+    \[
+        \e^{-\beta\hbar\omega(n+\frac{1}{2})}~ \e^{c\hat{a}}~ \e^{c\hat{a}^\dagger} \ket{n}
+         = \sum_{l=0}^{\infty} \sum_{m=0}^{\infty} \frac{c^l}{l!}\sqrt{\frac{(n+m)!}{(n+m-l)!}} \frac{c^m}{m!}\sqrt{\frac{(n+m)!}{n!}} \ket{n+m-l}
+    \]
+    两边同乘以\(\bra{n}\)，利用谐振子数目本征态的正交性，即可得到
+    \begin{equation}\label{series}
+        \sum_n \braket{n | \e^{-\beta\hbar\omega(n+\frac{1}{2})} \e^{c\hat{a}} \e^{c\hat{a}^\dagger}  | n} = \e^{-\frac{1}{2}\beta\hbar\omega} \sum_{m=0}^\infty \sum_{n=0}^\infty \frac{(n+m)!}{n!(m!)^2} c^{2m} \e^{-n\beta\hbar\omega}
+    \end{equation}
+    
+    在这里需要用到一个结论：函数\((1-z)^{-m}\)在常点\(z = 0\)附近的邻域内的Taylor展开可以通过\((1-z)^{-1} = \sum_{n = 0}^{\infty} z^n\)两端求导得到：
+    \[
+        \frac{\dd^m}{\dd z^m}(1-z)^{-1} = (-1)^m m! (1-z)^{-m-1} = \sum_{n = m}^\infty \frac{n!}{(n-m)!}z^{n-m} = \sum_{n=0}^\infty \frac{(n+m)!}{n!}z^n
+    \]
+    所以\[(1-z)^{-m-1} = (-1)^m \sum_{n=0}^{\infty} \frac{(n+m)!}{n!~m!}z^n\]
+    所以式(\ref{series})可以写作
+    \[
+        \e^{-\frac{1}{2}\beta\hbar\omega} \sum_{m=0}^{\infty} (1 - e^{-\beta\hbar\omega})^{-m-1} (-1)^m c^{2m} = \frac{1}{2\sinh \frac{\beta\hbar\omega}{2}} \exp\left[-\frac{\hbar k^2}{2m\omega(1-\e^{-\beta\hbar\omega})}\right]
+    \]
+    将上述结论代入式(\ref{trace})中，发现结果转化成为高斯积分：
+    \[
+        \begin{aligned}
+        \Tr{\e^{-\beta \hat{H}}\delta(\hat{x} - x_0)} 
+        &= \frac{1}{2\pi} \int_{-\infty}^{\infty} \dd k ~\frac{1}{2\sinh \frac{\beta\hbar\omega}{2}} \exp \left[-\ii kx_0 + \frac{\hbar k^2}{4m\omega} - \frac{\hbar k^2}{2m\omega(1-\e^{-\beta\hbar\omega})} \right]
+        \\ &=  \frac{1}{2\pi} \int_{-\infty}^{\infty} \dd k ~\frac{1}{2\sinh \frac{\beta\hbar\omega}{2}} \exp \left[-\frac{\hbar k^2}{4m\omega \tanh \frac{\beta\hbar\omega}{2}} - \ii kx_0\right]
+        \\ &= \left[\frac{m\omega}{2\pi\hbar\sinh(\beta\hbar\omega)}\right]^{\frac{1}{2}}\exp \left[-\frac{m\omega x_0^2}{\hbar}\tan{\frac{\beta\hbar\omega}{2}}\right]
+        \end{aligned}
+    \]
+
+    这个方法可以方便地移植到联合密度分布上去。
+    \[
+    \begin{aligned}
+        &\quad \rho_W(x, p) = \Tr{\e^{-\beta \hat{H}}\delta(\hat{x} - x_0, \hat{p} - p_0)} 
+        \\ &= \sum_n \braket{n | \e^{-\beta \hat{H}}\delta(\hat{x} - x_0, \hat{p} - p_0) | n}
+        \\ &= \frac{1}{4\pi^2} \iint \dd k ~\dd \xi ~\sum_n \braket{n |  \e^{-\beta\hbar\omega(n+\frac{1}{2})} \exp\left\{\ii k \left[\frac{\hbar}{2m\omega}(\hat{a}^\dagger + \hat{a}) - x_0\right] + \ii \xi \left[\ii \sqrt{\frac{\hbar\omega}{2}} (\hat{a}^\dagger - \hat{a}) - p_0 \right]\right\}  | n}
+        \\ &= \frac{1}{4\pi^2} \iint \dd k ~\dd \xi ~\exp\left[-\ii k x_0 + \frac{\hbar k^2}{4m\omega} + \frac{\hbar m\omega \xi^2}{4}\right] \sum_n\braket{n | \e^{-\beta\hbar\omega(n+\frac{1}{2})} \e^{c_2\hat{a}} \e^{c_1\hat{a}^\dagger}  | n}
+    \end{aligned}
+    \] 
+    其中\[c_1 = \ii k \sqrt{\frac{\hbar}{2m\omega}} - \xi \sqrt{\frac{\hbar\omega}{2}},\quad c_2 = \ii k \sqrt{\frac{\hbar}{2m\omega}} + \xi \sqrt{\frac{\hbar\omega}{2}}\]
+
+    请读者补足后续计算，验证
+    \[
+    \rho_W (x, p)
+    = \frac{1}{2\pi \hbar \cosh (\frac{\beta\hbar\omega}{2})} \exp\left[-\frac{\beta}{Q}\left(\frac{p_0^2}{2m} + \frac{m\omega^2x_0^2}{2}\right)\right]
+    \]
+    其中\(Q = \frac{\beta\hbar\omega}{2\tanh \frac{\beta\hbar\omega}{2}}\)是我们引入的量子校正因子。
+    可以看到，这个结果从形式上相当于两个边缘分布直接相乘。
+    经典情形下，直接取\(\beta\)或者\(\omega\)非常小的极限，这样
+    \(\tanh \frac{\beta\hbar\omega}{2}\rightarrow \frac{\beta\hbar\omega}{2}\)，上式的指数项可以直接化为经典情形；
+    归一化因子的分母中的\(\cosh (\frac{\beta\hbar\omega}{2}) \rightarrow 1\)，这也将趋近于经典情形。
+
+
+    如果对\(\dd x_0 \dd p_0\)进行积分，则很容易发现能够得到配分函数：
+    \[
+    \begin{aligned}
+    \iint \dd x_0 \dd p_0 \Tr{\e^{-\beta \hat{H}}\delta(\hat{x} - x_0)\delta(\hat{p} - p_0)}
+    & = \frac{1}{2\pi \hbar \cosh (\frac{\beta\hbar\omega}{2})} \left(\frac{2\pi mQ}{\beta}\right)^{\frac{1}{2}} \left(\frac{2\pi Q}{\beta m \omega^2}\right)^{\frac{1}{2}}
+    \\ &= \frac{1}{2\sinh \frac{\beta\hbar\omega}{2}}
+    = Z
+    \end{aligned}
+    \]
+
+    利用Wigner函数，可以方便地解决量子情形下的某些实际问题。
+    一般来说，将基于经典密度函数的采样改成基于Wigner函数的采样即可。
+    
+    \begin{asg}
+        数值计算水分子在300 K下的量子振动配分函数，以及其某些物理化学性质，比如键长、键角的期望和涨落等。
+        （这是期末大作业的题目之一。提示：利用简正坐标变换，从势能面的Hessian矩阵提取出水分子的简正振动模式。
+        平动和转动自由度已经删去。）
+    \end{asg}
+
+    \section{Wigner函数与传播子}
+
+    Wigner函数的另一种表达形式如下：
+    \[
+        \rho_W(x, p) = \int \dd \Delta \left< x + \frac{\Delta}{2} | \e^{-\beta\hat{H}} | x - \frac{\Delta}{2} \right> \e^{\ii p\Delta / \hbar}
+    \]
+    
+    \begin{asg}
+        证明这个表达形式和\[\rho_W(x, p) = \Tr{\e^{-\beta \hat{H}}\delta(\hat{x} - x_0, \hat{p} - p_0)}\]的定义是等价的。
+        （提示：将这个广义\(\delta\)函数展开成Fourier变换的形式，从中你可以看到平移算符！）
+    \end{asg}
+
+    因此，在上式中只要对\(\rho_W(x, p)\)进行Fourier变换，即可求出
+    \[
+        \left< x + \frac{\Delta}{2} | \e^{-\beta\hat{H}} | x - \frac{\Delta}{2} \right>
+    \]
+    的结果。令\(x_a = x + \frac{\Delta}{2}, x_b = x - \frac{\Delta}{2}\)，即可求得
+    \(
+        \braket{x_a | \e^{-\beta \hat{H}} | x_b}
+    \)
+    的形式。
+    
+    \begin{asg}
+        对\(\rho_W(x, p)\)进行Fourier变换，验证
+        \[
+            \braket{x_a | \e^{-\beta\hat{H}} | x_b} = 
+            \sqrt{\frac{m\omega}{2\hbar\sinh(\beta\hbar\omega)}} 
+            \exp\left\{\frac{m\omega}{2\hbar\sinh(\beta\hbar\omega)} 
+            \left[\cosh(\beta\hbar\omega)(x_a^2 + x_b^2) - 2x_a x_b\right]\right\}
+        \]
+    \end{asg}
+    
+    作变换\(\beta \rightarrow -\ii t / \hbar\)，即可得到谐振子的\textbf{传播子}。
+    传播子的物理意义将在下一章揭晓。
+
+
+    
+
+    \bibliographystyle{plain}
+    \bibliography{ref_quantum_phase_space}

@@ -1,0 +1,919 @@
+\chapter{相空间}
+    \section{重新审视Hamilton方程}
+    \subsection{将Hamilton方程写为对称的形式}
+    由于Hamilton方程是一阶微分方程组，其变量$\bm{x},\bm{p}$拥有比牛顿方程中位置和速度更加平等的地位
+    \footnote{正则变量之间平等地位更应该通过\cite{Goldstein2000Classical}来说明}，
+    所以我们希望能将Hamilton方程写为对称的形式.对于一个$n$自由度的力学系统
+    \footnote{
+        即$\bm{x}$是一个n维向量
+    }
+    ，考虑引入一个新变量$\bm{\eta}:= (\bm{x}, \bm{p})$
+    ，那么正则方程可以写为：
+    \begin{equation}
+        \left\{
+        \begin{split}
+            \dot{\eta}_{i} &= \dot{x}_i = \pdv{H}{p_i} = \pdv{H}{\eta_{i+n}}\\
+            \dot{\eta_{i+n}} &= \dot{p}_i = - \pdv{H}{x_i} = -\pdv{H}{\eta_{i}}
+        \end{split}
+        \right.
+        \quad\quad\quad i = 1,\cdots, n
+    \end{equation}
+    引入$2n\times 2n$方阵$\bm{J}$：
+    \begin{equation}
+        \bm{J} = 
+        \begin{bmatrix}
+            \bm{0} & \bm{I}_n\\
+            -\bm{I}_n & \bm{0}
+        \end{bmatrix}
+    \end{equation}
+    那么Hamilton方程可以写为：
+    \begin{equation}
+        \dot{\bm{\eta}} = \bm{J}\pdv{H}{\bm{\eta}}
+        \label{canonical equation}
+    \end{equation}
+    \subsection{动力系统的概念}
+    这一节讨论一下比Hamilton方程更加普遍的情况.考虑如下微分方程组（Hamilton方程显然是下面所述
+    微分方程的一个特例）：
+    \begin{equation}
+        \dv{\bm{x}}{t} = \bm{v}(\bm{x})
+        \label{dynamical system}
+    \end{equation}
+    其中$\bm{v}$是一个$\mathbb{R}^{n}\to\mathbb{R}^{n}$的连续可微映射.这个方程可以看作
+    一个在给定速度场中运动的粒子的运动方程.对于任何给定的初始条件：
+    \begin{equation}
+        \bm{x}(t_0) = \bm{x_0}
+        \label{initial condition}
+    \end{equation}
+    方程满足微分方程解的存在唯一性定理\cite{丁同仁2004常微分方程教程}，因此对于初始条件有唯一解：
+    \begin{equation}
+        \bm{x} = \bm{\phi}(t;t_0, \bm{x}_0)
+    \end{equation}
+    我们将$\bm{\phi}$在给定$t_0,\bm{x}_0$时作为$t$的函数的“函数图像”
+    \footnote{即集合$\{(\bm{\phi}(t;t_0,\bm{x}_0), t)|t>t_0\}$}称为积分曲线.
+    其中$\bm{x}$取值的空间$\mathbb{R}^n$称为\textbf{相空间}.给定初始条件之后微分方程的解
+    给出了相空间中一条以$t$为参数并且在$t_0$时间通过$\bm{x}_0$的曲线，称之为\textbf{轨线}.
+    从直观上讲，这个曲线就是我们能看到的在速度场中运动的粒子所走过的轨迹.一般称这样的方程为动力系统
+    （注意速度场并不显含时间）.
+    \par 下面介绍几个动力系统的基本性质，有助于我们理解本节讲授的Liouville定理.
+    \par (1) 积分曲线的平移不变性.考虑$\bm{x} = \bm{\phi}(t;t_0,\bm{x}_0)$是初始条件\ref{initial condition}
+    对应的解，那么$\bm{x} = \bm{\phi}(t;t_0 + C,\bm{x}_0)$依然满足方程（但是不再满足初始条件），
+    这个结论的正确性是由速度场不含时间保证的，可以直接将解带入微分方程进行验证.容易想象，时间平移之后
+    相空间中的轨线完全没有变化，可以形象地理解，在不含时速度场中粒子运动的轨迹只取决于粒子的初始位置
+    而与粒子开始运动的时间无关.
+    \par (2) 过相空间每一点轨线的唯一性. 这是动力系统（同样是Hamilton方程）的一个重要性质，
+    它说明了从相空间中不同点出发的轨线不可能相交.考虑两个不同初始条件的积分曲线
+    $\bm{\phi}(t;t_1,\bm{x}_1),\, \bm{\phi}(t; t_2, \bm{x}_2)$在相空间中相交于同一点$\bm{x}'$，
+    那么可以对其中一个曲线进行时间平移，使得在某个时刻$t'$两个积分曲线相交于$(\bm{x}', t')$，由微分
+    方程解的存在唯一性定理，这两个积分曲线必须完全重合，那么它们对应的相空间中的轨线也必须完全重合，
+    这说明了通过相空间中每一点有且只有一条轨线.
+    \par (3) 相流.考虑将初始条件设为$t=0,\, \bm{x}(0) = \bm{x}_0$，定义
+    $\mathbb{R}^n \to \mathbb{R}^n$的映射：
+    \begin{equation}
+        \phi^{t}: \bm{x}_{0} \to \bm{\phi}(t; 0, \bm{x}_0)
+    \end{equation}
+    这个映射将$t=0$时粒子在相空间中的位置映射为粒子沿着轨线运动$t$时间后粒子在相空间中的位置.由轨线
+    的唯一性可知，对于$\forall t$映射$\phi^t$是一个双射.更进一步，由于已经假设了$\bm{v}(\bm{x})$
+    是一个连续可微映射，因此$\bm{\phi}(t; 0, \bm{x}_0)$对于初值$\bm{x}_0$也是连续可微的
+    \cite{丁同仁2004常微分方程教程2}，那么映射$\phi^t$是$\mathbb{R}^n$上的一个微分同胚.事实上，
+    容易根据微分方程解的存在唯一性证明$\forall s, t\in \mathbb{R}$:
+    \begin{equation}
+        \phi^{s + t} = \phi^s\circ\phi^{t}
+        \label{def of phase flow}
+    \end{equation}
+    这样$\phi^t$组成的集合就有了群的结构
+    \footnote{严格来讲，应该验证存在单位元、逆元等，使这个集合满足群的定义}
+    ，将这样的一个单参数微分同胚群称为\textbf{相流}.
+
+    \subsection{Hamilton系统的稳定性矩阵}
+    在这一节中我们讨论改变初值对于轨线的影响.固定初始时刻$t=0$，初始位置为$(\bm{x}_0, \bm{p}_0)$，
+    将$t$时刻系统在相空间中的位置写成初始条件的函数（这个函数就是Hamilton方程的解）：
+    \begin{equation}
+        \begin{split}
+            \bm{x}_t &= \bm{x}_t(\bm{x}_0, \bm{p}_0)\\
+            \bm{p}_t &= \bm{p}_t(\bm{x}_0, \bm{p}_0)
+        \end{split}
+    \end{equation}
+    若初始位置偏离$(\mathrm{d}\bm{x}_0,\mathrm{d}\bm{p}_0)$（假设偏离量是小量），那么
+    \begin{equation}
+        \begin{split}
+        \bm{x}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{x}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \dd \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \dd \bm{p}_0\\
+        \bm{p}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{p}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \dd \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \dd \bm{p}_0
+        \end{split}
+    \end{equation}
+    这里只考虑了Taylor展开到一阶的结果.或者写成
+    \begin{equation}
+        \begin{split}
+            \mathrm{d}\bm{x}_t &= \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \dd \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \dd \bm{p}_0\\
+            \mathrm{d}\bm{p}_t &= \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \dd \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \dd \bm{p}_0
+        \end{split}
+        \end{equation}
+    现在已经将$t$时刻的位置偏离表示成了0时刻位置偏离的函数\footnote{初始时刻只有无穷小偏离，因此只考虑线性近似}
+    ，但是由于Hamilton方程的解是未知的，系数矩阵没有办法直接求出来.为了获取系数矩阵的一些信息，我们尝试对时间求导：
+    \begin{equation}
+        \begin{split}
+            \frac{\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0} &= \bigg(\frac {\partial}{\partial \bm{x}_0} \frac {\mathrm{d}\bm{x}_t}{\mathrm{d}t}\bigg)_{\bm{p}_0} = \bigg(\frac {\partial}{\partial \bm{x}_0} \bigg(\frac {\partial H}{\partial \bm{p}_t}\bigg)_{\bm{x}_t}\bigg)_{\bm{p}_0} = \bigg(\frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}\bigg) \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}+ \bigg(\frac {\partial^2H}{\partial \bm{p}_t^2}\bigg)_{\bm{x}_t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}\\
+            \frac{\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} &= \bigg(\frac {\partial}{\partial \bm{p}_0} \frac {\mathrm{d}\bm{x}_t}{\mathrm{d}t}\bigg)_{\bm{x}_0} = \bigg(\frac {\partial}{\partial \bm{p}_0} \bigg(\frac {\partial H}{\partial \bm{p}_t}\bigg)_{\bm{x}_t}\bigg)_{\bm{x}_0} = \bigg(\frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}\bigg) \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} + \bigg(\frac {\partial^2H}{\partial \bm{p}_t^2}\bigg)_{\bm{x}_t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}\\
+            \frac{\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0} &= \bigg(\frac {\partial}{\partial \bm{x}_0} \frac {\mathrm{d}\bm{p}_t}{\mathrm{d}t}\bigg)_{\bm{p}_0} = -\bigg(\frac {\partial}{\partial \bm{x}_0} \bigg(\frac {\partial H}{\partial \bm{x}_t}\bigg)_{\bm{p}_t}\bigg)_{\bm{p}_0} = -\bigg(\frac {\partial^2 H}{\partial \bm{x}_t^2}\bigg)_{\bm{p}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}- \bigg(\frac {\partial^2H}{\partial \bm{p}_t \partial \bm{x}_t}\bigg) \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}\\
+            \frac{\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} &= \bigg(\frac {\partial}{\partial \bm{p}_0} \frac {\mathrm{d}\bm{p}_t}{\mathrm{d}t}\bigg)_{\bm{x}_0} = -\bigg(\frac {\partial}{\partial \bm{p}_0} \bigg(\frac {\partial H}{\partial \bm{x}_t}\bigg)_{\bm{p}_t}\bigg)_{\bm{x}_0} = -\bigg(\frac {\partial^2 H}{\partial \bm{x}_t^2}\bigg)_{\bm{p}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}- \bigg(\frac {\partial^2H}{\partial \bm{p}_t \partial \bm{x}_t}\bigg) \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}    
+        \end{split}
+    \end{equation}
+    由此可以得到一个微分方程组：
+    \begin{equation}
+        \displaystyle
+        \begin{split}
+            \frac {\mathrm{d}}{\mathrm{d}t}
+            \begin{bmatrix}
+                \frac {\partial \bm{x}_t}{\partial \bm{x}_0} & \frac {\partial \bm{x}_t}{\partial \bm{p}_0}\\
+                \frac {\partial \bm{p}_t}{\partial \bm{x}_0} & \frac {\partial \bm{p}_t}{\partial \bm{p}_0}
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                \frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t} & (\frac {\partial^2 H}{\partial \bm{p}_t^2})_{\bm{x}_t}\\
+                -(\frac {\partial^2 H}{\partial \bm{x}_t^2})_{\bm{p}_t} & - \frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}
+            \end{bmatrix}
+            \begin{bmatrix}
+                \frac {\partial \bm{x}_t}{\partial \bm{x}_0} & \frac {\partial \bm{x}_t}{\partial \bm{p}_0}\\
+                \frac {\partial \bm{p}_t}{\partial \bm{x}_0} & \frac {\partial \bm{p}_t}{\partial \bm{p}_0}
+            \end{bmatrix}
+        \end{split}
+    \end{equation}
+    等式右边由Hamilton量二阶偏导数组成的矩阵称为Hamilton系统的\textbf{稳定性矩阵}，其决定了在相空间
+    某一点附近，初值改变引起的\textbf{短时间内}轨线改变的趋势，下面给以简单说明.考虑一般的微分方程组
+    \ref{dynamical system}，初始条件分别为$t=0, \bm{x}(0) = \bm{x}_0;\, t=0, \bm{x}(0) = \bm{x}_0 + \delta\bm{x}_0$
+    ，写出对应的解：
+    \begin{equation}
+        \begin{split}
+            \dot{\bm{\phi}}(t, \bm{x}_0) &= \bm{v}(\bm{\phi}(t, \bm{x}_0))\\
+            \dot{\bm{\phi}}(t, \bm{x}_0 + \delta\bm{x}_0) &= \bm{v}(\bm{\phi}(t, \bm{x}_0 + \delta\bm{x}_0))
+        \end{split}
+    \end{equation}
+    将上两式相减，得到改变初值引起的积分曲线的变化所满足的方程：
+    \begin{equation}
+        \dot{\delta\bm{\phi}} = \left.\pdv{\bm{v}}{\bm{x}}\right|_{\bm{x = \bm{\phi(t, \bm{x}_0)}}} \delta\bm{\phi}
+    \end{equation}
+    上式是一个线性的微分方程，其系数矩阵显然是时间的函数，如果我们认为在较短的时间内系数矩阵不随时间变化，
+    而且取初始位置$\bm{x}_0$的值，那么上述方程在短时间内的解近似为：
+    \begin{equation}
+        \delta \bm{\phi} \approx \exp\left(\left.\pdv{\bm{v}}{\bm{x}}\right|_{\bm{x} = \bm{x}_0}\right) \delta\bm{x}_0
+    \end{equation}
+    可以看到短时间内矩阵$\displaystyle\left.\pdv{\bm{v}}{\bm{x}}\right|_{\bm{x} = \bm{x}_0}$的性质决定了$\delta\bm{\phi}$
+    的行为（主要是其特征值实部的正负\footnote{若实部最大的特征值实部若大于0，则在该点邻域内初值小的偏移
+    都会引起轨线以指数增长的偏移，称这样的区域为轨道的不稳定区域；若特征值实部全部小于0，那么初值小的偏移
+    引起的轨线偏移是指数衰减的，称这样的区域为轨道的稳定区域}）.对于Hamilton系统，$\displaystyle\bm{v} = \bm{J}\pdv{H}{\bm{\eta}}$，
+    容易验证$\displaystyle\pdv{\bm{v}}{\bm{x}}$就是之前定义的Hamilton系统的稳定性矩阵.
+    \section{Liouville定理}
+    \subsection{Liouville定理的提出}
+    前一节已经指出了$\phi^t$是一个$\mathbb{R}^n\to\mathbb{R}^n$的微分同胚，其意义是将0时刻相空间
+    中的点映射到$t$时刻相空间中的点.我们关心这个映射的性质，对于Hamilton系统\ref{canonical equation}
+    一个重要的性质是$\phi^t$是一个保持体积的映射，具体来说，假设$V(D)$表示
+    $D\in\mathbb{R}^n$（前提是$D$的体积有定义）的体积，那么：
+    \begin{equation}
+        V(\phi^t(D)) = V(D)
+    \end{equation}
+    这个结论并不需要用到Hamilton系统的全部性质，可以期待$\phi^t$保持了相空间中更多的量.同时也可以探究
+    一般的动力系统\ref{dynamical system}中相体积在$\phi^t$下的变化.
+    \subsection{Liouville定理的证明}
+    $t$时刻$\phi^t(D)$的体积用积分表示为：
+    \begin{equation}
+        V(\phi^t(D)) = \int_{\phi^t D}\d x_1\d x_2\cdots\d x_n
+    \end{equation}
+    考虑到重积分的换元公式，可以将$\phi^t(D)$的体积写为：
+    \begin{equation}
+        V(\phi^t(D)) = \int_{D}\left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}}\right|\d x_1\d x_2\cdots\d x_n
+        \label{volum of D}
+    \end{equation}
+    那么只用知道映射$\phi^t$的Jacobi行列式$\displaystyle\left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}}\right|$的表达式就可以计算出
+    $\phi^t$映射下体积的变化.但是这个行列式本身的性质无法直接看出，我们对其求导：
+    \begin{equation}
+        \begin{split}
+            \dv{}{t}\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0} &= \pdv{}{\bm{x}_0}\dv{\bm{\phi}(t, \bm{x}_0)}{t}\\
+            & = \pdv{\bm{v}(\bm{\phi}(t, \bm{x}_0))}{\bm{x}_0}\\
+            & = \left.\pdv{\bm{v}(\bm{x})}{\bm{x}}\right|_{\bm{x}=\bm{\phi}(t, \bm{x}_0)}\cdot
+            \pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}
+        \end{split}
+        \label{the equation of jacobian}
+    \end{equation}
+    我们希望通过上面得到的等式来计算Jacobi行列式$\displaystyle\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}$.
+    \par 
+    首先给出一个利用矩阵函数性质的证明.考虑方阵$\bm{A}$：
+    \begin{equation}
+        \bm{A} = 
+        \begin{pmatrix}
+            a_{11} & \cdots & a_{1n}\\
+            \vdots & & \vdots\\
+            a_{n1} & \cdots & a_{nn}\\
+        \end{pmatrix}
+    \end{equation}
+    它的行列式可以表示为（行列式按行展开）：
+    \begin{equation}
+        \det{\bm{A}} = \sum_{j=1}^na_{ij} A_{ij}^* \quad\quad i = 1, 2, \cdots, n
+    \end{equation}
+    其中，$A_{ij}^*$表示$a_{ij}$的代数余子式
+    \footnote{方阵$\bm{A}\,$$i,j$元$a_{ij}$余子式$M_{ij}$定义为将方阵$\bm{A}$的i行j列去掉后组成的方阵的行列式，
+    容易通过行列式的多重线性性和交错对称性证明：
+    \begin{equation}
+        \det \bm{A} = \sum_{j = 1}^{n}(-1)^{i + j}a_{ij}\cdot M_{ij}\quad \quad i = 1, 2, \cdots, n
+    \end{equation}
+    $a_{ij}$的代数余子式$A_{ij}^*$定义为$A_{ij}^* := (-1)^{i+j}M_{ij}$
+    }
+    .定义$\bm{A}$的\textbf{伴随矩阵}$\bar{\bm{A}}$为:
+    \begin{equation}
+        \bar{\bm{A}}_{ij} = A_{ji}^* 
+    \end{equation}
+    矩阵$\bm{A}$的逆矩阵（假设可逆）可以用伴随矩阵$\bar{\bm{A}}$表示为
+    \footnote{可以通过矩阵乘法与行列式的性质验证下面所表示的矩阵就是$\bm{A}$的逆矩阵}：
+    \begin{equation}
+        \bm{A}^{-1} = \frac{1}{\det{\bm{A}}}\bm{\bar{A}}
+    \end{equation}
+    \par 
+    假设方阵$\bm{A}$中的每个元素$a_{ij}$均是$t$的函数，可以想象对于方阵$\bm{A}$求导即是对于每个
+    元素求导组成的方阵，但是对$\det \bm{A}$求导并不是这样.利用行列式是每一行（每一列）的多重线性
+    函数这个性质
+    \footnote{
+        设$T(v_1,\cdots,v_n)$是$V\times\cdots\times V \to \mathbb{R}$的多重线性映射，那么：
+        \begin{equation}
+            \dv{T(v_1,\cdots,v_n)}{t} = T\left(\dv{v_1}{t}, v_2, \cdots, v_n\right) + T\left(v_1, \dv{v_2}{t}, \cdots, v_n\right)
+             + \cdots + T\left(v_1, v_2, \cdots, \dv{v_n}{t}\right)
+        \end{equation}
+        有很多与之相关的例子，比如对n个函数乘积的求导（莱布尼茨法则），对两个向量内积的求导、
+        对$\mathbb{R}^3$中向量积的求导、对对易子的求导等等；证明的思路与莱布尼茨法则证明的思路类似.
+    }，可以给出对行列式求导的结果：
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \det{\bm{A}} = \sum_i \det{\dot{\bm{A}_{i}}}
+    \end{equation}
+    其中，$\dot{\bm{A}_{i}}$是只对第$i$行的所有元素对时间求导，其他元素不变得到的矩阵.进一步得到
+    \begin{equation}
+        \begin{split}
+            \frac {\mathrm{d}}{\mathrm{d}t} \det{\bm{A}} &= \sum_i \det{\dot{\bm{A}_i}} = \sum_{i=1}^n \sum_{j=1}^n \frac {\mathrm{d}a_{ij}}{\mathrm{d}t} \bm{A}_{ij}^*\\
+        &= \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bar{\bm{A}}\bigg) = \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bm{A}^{-1}\bigg) \det{\bm{A}}
+        \end{split}
+    \end{equation}
+    将两边同时除以$\bm{A}$的行列式，得到一个重要的公式：
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \ln{\det{\bm{A}}} = \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bm{A}^{-1}\bigg)
+    \end{equation}
+    假设$\bm{A}$满足（就是$\phi^t$的Jacobi行列式满足的条件）：
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \bm{A} = \bm{M}\cdot\bm{A}
+        \label{equation of matrix}
+    \end{equation}
+    就有：
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \ln{\det{\bm{A}}} = \mathrm{Tr}\ \bm{M}
+    \end{equation}
+    将这个结论应用于$\phi^t$满足的方程\ref{the equation of jacobian}，可以得到：
+    \begin{equation}
+        \dv{}{t}\ln \left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}\right| = \mr{Tr}\left(\pdv{\bm{v}}{\bm{x}}\right)_{\bm{x} = \bm{\phi}(t, \bm{x}_0)}
+    \end{equation}
+    将上式两边对时间积分，同时考虑到初始条件$\displaystyle\pdv{\phi^0}{\bm{x}_0} = 1$，可以给出$t$时刻Jacobi矩阵
+    的表达式：
+    \begin{equation}
+        \left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}_{0}}\right| = \exp\left(\int_{0}^{t}\mr{Tr}\left.
+        \pdv{\bm{v}}{\bm{x}}\right|_{\bm{x} = \bm{\phi}(u, \bm{x}_0)}\d u\right)
+        \label{expression of jacobian}
+    \end{equation}
+    将上式带入\ref{volum of D}就可以得到理论上的体积公式.可以看出，要计算出Jacobi行列式必须要方程的显式解，
+    这在大多数情况下并不能够得到满足，但是当$\displaystyle\mr{Tr}\pdv{\bm{v}}{\bm{x}}$
+    与时间无关时，就容易计算出Jacobi行列式.有一种特殊的情况：
+    \begin{equation}
+        \mr{Tr}\pdv{\bm{v}}{\bm{x}} = 0
+    \end{equation}
+    此时$\displaystyle\left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}\right| = 1,\, \forall t$，
+    满足这个条件的系统的相流中的任何一个元素$\phi^t$均是保持相体积不变的映射，
+    这个结论被称为Liouville定理.对于Hamilton系统的相流中某个映射$\phi^t$的Jacobi行列式有
+    （参考\ref{eqaution of matrix}中的定义）：
+    \begin{equation}
+        \bm{M} = \bm{J} \pdv{^2 H}{\bm{\eta}^2}=
+        \begin{pmatrix}
+        \frac {\partial^2 H}{\partial \vec{x}_t \partial \vec{p}_t} & (\frac {\partial^2 H}{\partial \vec{p}_t^2})_{\vec{x}_t}\\
+        -(\frac {\partial^2 H}{\partial \vec{x}_t^2})_{\vec{p}_t} & - \frac {\partial^2 H}{\partial \vec{x}_t \partial \vec{p}_t}
+        \end{pmatrix}
+    \end{equation}
+    显然这个矩阵的迹为0，所以
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \det \bigg|\frac {\partial (\bm{x}_t,\bm{p}_t)}{\partial (\bm{x}_0,\bm{p}_0)} \bigg| = 0
+    \end{equation}
+    所以Jacobi行列式恒为1.由之前得到的结果\ref{volum of D}就可以证明Hamilton相流中任一映射均是保持相体积的映射.
+    为了区分0时刻与$t$时刻的相空间，通常将0时刻相空间中的坐标记为$(\bm{x}_0, \bm{p}_0)$，$t$时刻记为
+    $(\bm{x}_t,\bm{p}_{t})$\footnote{这样的记法所表达的真正含义是$\phi^t(\bm{x}_0, \bm{p}_0) = (\bm{x}_t, \bm{p}_t)$}，
+    那么两个由映射$\phi^t$联系起来的空间的体积元之间满足：
+    \begin{equation}
+        \mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t = \left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}\right|\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0 = \dd \bm{x}_0\dd \bm{p}_0
+    \end{equation}
+    上面的等式完全可以看作Liouville定理的另一种表述形式.
+    \paragraph{}
+    还有另外的证明Liouville定理的方法，将方程\ref{the equation of jacobian}看作一个线性微分方程组，将$\displaystyle\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}$
+    的每一列都看作方程的一个解，那么$\displaystyle\left|\pdv{\phi^t(\bm{x}_0)}{\bm{x}_0}\right|$就是这个微分方程组的
+    Wronsky行列式，根据线性微分方程组的Liouville公式
+    \footnote{直接对Liouville公式求导并带入微分方程组就可以证明这个结论}
+    可以直接得到\ref{expression of jacobian}式的结论.
+    \paragraph{}
+    还可以根据Hamilton系统的性质，给出一个比较巧妙的证明
+    \footnote{
+        这里证明了Hamilton相流给出的相空间之间的变换是一个辛变换；相流给出的变换
+        是一种正则变换.
+    }.首先约定一些记号：
+    \begin{equation}
+        \begin{split}
+            \bm{M}(t) &:= \pdv{\phi^t(\bm{\eta}_0)}{\bm{\eta}_0}\\
+            \bm{A}(t) &:= \bm{M}(t)^t\bm{J}\bm{M}(t)
+        \end{split}
+    \end{equation}
+    其中$\dps\bm{M}(t)$就是Hamilton相流代表的变换的Jacobi行列式（定义参见\ref{def of phase flow}）
+    希望证明$\bm{A}(t)$是一个不随时间变化的矩阵，对其求导，同时带入Hamilton方程\ref{canonical equation}：
+    \begin{equation}
+        \begin{split}
+            \dot{\bm{A}}(t) &= \dot{\bm{M}}(t)^t\bm{J}\bm{M}(t) + \bm{M}(t)^t\bm{J}\dot{\bm{M}}(t)\\
+            &= \bm{M}(t)^t\pdv{^2 H}{\bm{\eta}^2}^t \bm{J}^t\bm{J}\bm{M}(t) + \bm{M}(t)^t\bm{J}\bm{J}
+            \pdv{^2 H}{\bm{\eta}^2}\bm{M}(t)\\
+            &= 0
+        \end{split}
+    \end{equation}
+    这说明$\bm{A}(t)$是一个不随时间变化的矩阵，考虑到$t=0$时$\phi^0$是恒等映射，对应的Jacobi行列式
+    为单位矩阵，所以：
+    \begin{equation}
+        \bm{A}(t) = \bm{A}(0) = \bm{J}
+    \end{equation}
+    那么对于Hamilton相流$\{\phi^t\}$\footnote{这里表示所有映射$\phi^t$的集合}，下式恒成立：
+    \begin{equation}
+        \bm{J} = \left[\pdv{\phi^t(\bm{\eta}_0)}{\bm{\eta}_0}\right]^t \bm{J} \left[\pdv{\phi^t(\bm{\eta}_0)}{\bm{\eta}_0}\right]
+    \end{equation}
+    在上式两边取行列式，容易得到$\dps\det\bm{M}(t) = \pm 1$，如果考虑到$t\to\bm{M}(t)$是一个连续的映射
+    \footnote{这里的连续性只是修改者的一个感觉，}
+    而行列式也是连续的映射，可以根据$t=0$时$\det\bm{M}(0) = 1$确定下$\det\bm{M}(t) = 1$.
+    
+    \section{Liouville方程}
+    \subsection{有关系综的概念}\footnote{这一节的更多内容可以参考\cite{Tuckerman2010Statistical}
+    和刘川老师的平衡态统计物理讲义第二章开头}
+    统计物理的目标是建立宏观物理量和微观运动规律之间的联系，之前讨论的Hamilton方程可以用来描述经典意义下
+    微观系统的运动.某个微观系统的运动状态（某一时刻各个粒子的广义坐标和广义动量）对应相空间中一个点（
+    称为系统的\textbf{代表点}），系统随时间的演化等价于代表点在相空间中按照Hamilton方程决定的轨线运动.Maxwell
+    与Boltzmann认为，对于宏观系统的测量发生在一段时间$(t_0, t_0 + \tau)$内，其中$\tau$是一个
+    宏观短（指系统的宏观物理量没有发生可观测的变化）、微观长（指在这段时间内系统的代表点在相空间中发生了
+    很明显的移动）的时间段，而真正观测到的物理量$A(t_0)$是对应微观物理量$a(x,p)$的\textbf{时间平均}：
+    \begin{equation}
+        A(t_0) := \frac{1}{\tau}\int_{t_0}^{t_0+\tau}a(x(t), p(t))\dd x\dd p
+    \end{equation}
+    但是我们无法求解由大量粒子（~$10^{23}$）构成的复杂系统的运动方程，无法给出系统的相轨道，
+    因此上面的定义难以给出有意义的结论.
+    \par 
+    Boltzmann通过提出\textbf{各态历经假设}
+    \footnote{从数学上讲各态历经假设并不是对于任意力学系统都成立}
+    来解决上面遇到的困难，Boltzmann认为对于能量守恒的系统，
+    经过足够长（微观上）时间演化后，系统的代表点在等能面上每一个点邻域内都停留相同长的时间.
+    利用这种思想，我们可以定义系统在宏观短微观长的时间内在相空间中每一点附近出现的概率$\rho(x, p, t)$，
+    那么就能将物理量对时间的平均转化到对相空间的平均：
+    \begin{equation}
+        A(t_0) = \int\rho(x, p, t_0)a(x, p)\dd x\dd p
+    \end{equation}
+    随着我们引入相空间中的概率密度函数$\rho(x, p, t)$，我们已经更换了思考问题的角度.我们不再考虑\textbf{一个
+    系统}长时间演化过程中在相空间中的分布，而是直接考虑以同样的密度函数分布在相空间中的\textbf{大量完全相同的系统}，
+    待求的宏观物理量是对应的微观物理量在这些系统上的平均值，可以想象，如果各态历经假设是成立的，那么这两种
+    平均应该给出相同的结果.
+    \par 
+    有了上面的讨论，就将求出任意时刻热力学量的问题转化为了求出任意时刻密度函数$\rho(x, p, t)$的问题，
+    这个密度函数被称为\textbf{系综密度函数}，下面给出系综的准确定义.
+    满足同样宏观条件（如能量、体积、粒子数）的系统有可能处于不同的微观运动状态、对应相空间中不同的代表点
+    ，将具有\textbf{相同宏观条件}的所有系统
+    \footnote{这些系统必须是“相同的系统”，即是用Hamilton方程所描述的系统，形象地说有着相同数量、种类
+    的粒子，并且相互作用也相同；但是这里的相同并不是说运动状态也相同，它们对应着相空间中不同的代表点
+    }
+    的集合称为此宏观条件下的一个\textbf{系综}.可以定义系综内系统代表点在相空间的归一化密度函数$\rho(x, p, t)$，
+    这个函数代表了这个系综内系统的代表点在$(x, p)$邻域出现的概率，
+    满足：
+    \begin{equation}
+        \begin{split}
+            &\rho(x, p, t) \geq 0\\
+            &\int\rho(x, p, t)\dd x\dd p = 1
+        \end{split}
+        \label{ensemble density}
+    \end{equation}
+    宏观系统（宏观物理量）的时间演化用系综随时间的演化来描述：系综中的每一个系统代表点都按照Hamilton方程
+    在相空间中运动，代表点会随着时间在相空间中重新分布，对应的系综密度函数也会随时间变化
+    \footnote{既然系综内系统的代表点按照Hamilton方程运动，这样引起的系综密度的变化是完全确定的，
+    可以用下一节将要介绍的Liouville方程描述}
+    ，任意时刻的物理量按照对应时刻的系综密度函数计算.
+    \subsection{Liouville方程}
+    \footnote{这一节的更多内容可以参考\cite{Tuckerman2010Statistical2}}
+    考虑给定初始时刻$t=0$大量系统的代表点在相空间中的一个分布
+    \footnote{这样的分布可能是某个系综对应的分布，也有可能只是任意给定的分布，不代表真实的系综}
+    ，这个分布可以用一个归一化的密度函数$\rho(x, p, 0)$（满足\ref{ensemble density}）来描述，
+    这些系统的代表点将在相空间中按照Hamilton方程演化，我们想知道$t$时间后相空间中代表点的密度函数，
+    即希望给出$\rho(x, p, 0)$满足的方程.
+    \par
+    假设给定的分布在相空间中代表点的总数目为$N$，对于0时刻任意相空间中的区域$D$
+    \footnote{在我们的讨论中总假设$D$是有体积的}，其中代表点的数目$n(D)$为：
+    \begin{equation}
+        n(D) = N\int_{D}\rho(x, p, 0)\dd x\dd p
+    \end{equation}
+    考虑$D$内所有点都按照Hamilton方程在相空间中运动，那么$t$时刻$D$将演化为$\phi^t(D)$
+    \footnote{$\phi^t$是Hamilton相流中的一个元素，具体定义参见前一章关于相流的讨论}，
+    在演化过程中，$D$内的代表点不会从中“跑出”，也不会有新的代表点进入，更不会凭空消失，
+    因此$\phi^t$内的代表点数目维持不变，即：
+    \begin{equation}
+        n(\phi^t(D)) = N\int_{\phi^t}\rho(x, p, t)\dd x\dd p = n(D)
+    \end{equation}
+    那么可以得到：
+    \begin{equation}
+        \int_{D}\rho(x, p, 0)\dd x\dd p = \int_{\phi^t(D)}\rho(x, p, t)\dd x\dd p
+    \end{equation}
+    对等式右边应用重积分的换元，利用$\phi^t$将$\phi^t(D)$变换为0时刻的区域$D$（参考\ref{volum of D}），
+    同时利用Liouville定理，上面的等式可转化为：
+    \begin{equation}
+        \int_{D}\rho(x_0, p_0, 0)\dd x_0\dd p_0 = \int_{D}\rho(x_t(x_0, p_0), p_t(x_0, p_0), t)\dd x_0 \dd p_0
+    \end{equation}
+    上式中$(x_t, p_t)$的精确含义是$(x_t, p_t) = \phi^t(x_0, p_0)$，表示$(x_t, p_t)$是由
+    $(x_0, p_0)$按照Hamilton方程演化$t$时间后到达的点.由于上面的区域$D$是任意给定的，那么可以得到：
+    \begin{equation}
+        \rho(x_t(x_0, p_0), p_t(x_0, p_0), t) = \rho(x_0, p_0, 0)
+        \label{Liouville equation Lagrange}
+    \end{equation}
+    对上面的等式对时间求导\footnote{这里的求导是沿着轨线进行的}：
+    \begin{equation}
+        \frac{\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t}\dot{\bm{x}}_t  + \frac {\partial \rho}{\partial \bm{p}_t} \dot{\bm{p}}_t = 0
+    \end{equation}
+    再利用正则方程，得到
+    \begin{equation}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{t} \frac {\partial H}{\partial \bm{p}} - 
+        \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{t} \frac {\partial H}{\partial \bm{x}}
+        \label{Liouville equation Euler}
+    \end{equation}
+    这个方程被称为Liouville方程.
+    \par 
+    考虑定义在相空间中的两个函数$A(\bm{x}, \bm{p}),B(x ,p)$，定义这两个函数的\textbf{Poisson括号}
+    \footnote{
+        可以使用更紧凑的形式表达Poisson括号.考虑Hamilton方程\ref{canonical equation}，其中将$(\bm{x}, \bm{p})$
+        合并为正则变量$\bm{\eta}$，基于这种考虑，可以将Poisson括号写为：
+        \begin{equation}
+            \{A, B\} = \left(\pdv{A}{\bm{\eta}}\right)^\mr{t}\bm{J}\left(\pdv{B}{\bm{\eta}}\right)
+        \end{equation}
+        从这种形式的Poisson括号更容易看出其是正则变换下的不变量.
+    }
+    ：
+    \begin{equation}
+        \{A, B\} := \left(\pdv{A}{\bm{x}}\right)^\mr{t}\left(\pdv{B}{\bm{p}}\right) - \left(\pdv{A}{\bm{p}}\right)^\mr{t}\left(\pdv{B}{\bm{x}}\right)
+    \end{equation}
+    利用Poisson括号重写Liouville方程：
+    \begin{equation}
+        - \frac {\partial \rho}{\partial t} = \{ \rho, H\}
+    \end{equation}
+    得到Liouville方程的另一种表述形式.如果Hamilton函数满足形式:
+    \begin{equation}
+        H(\bm{x},\bm{p}) = \frac{1}{2}\bm{p}^\mathrm{t} \bm{M}^{-1} \bm{p} + V(\bm{x})
+    \end{equation}
+    那么这个系统的Liuville方程就可以写为：
+    \begin{equation} 
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{t} \bm{M}^{-1} \bm{p}
+         - \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{t} \frac {\partial V}{\partial \bm{x}}
+    \end{equation}
+    \par
+    这里给出一种常见的分布——\textbf{Boltzmann分布}\footnote{这是正则系综（NVT系综）的系综密度函数}：
+    \begin{equation}
+        \rho(\bm{x},\bm{p}) \propto \mathrm{e}^{-\beta H(\bm{x},\bm{p})}
+    \end{equation}
+
+    如果一个分布满足：
+    \begin{equation}
+        \frac {\partial \rho}{\partial t} = 0
+    \end{equation}
+    那么可以看出在相空间中任何一点$(\bm{x}_1, \bm{p}_1)$的系综密度$\rho(\bm{x}_1, \bm{p}_1, t)$
+    是一个与时间无关的常量（此时系综密度函数不显含时间），在这种情况下，对于任意微观量$a(\bm{x}, \bm{p})$
+    其系综平均值为：
+    \begin{equation}
+        A(t) = \int\rho(\bm{x}, \bm{p})a(\bm{x}, \bm{p})\dd \bm{x}\dd \bm{p}
+    \end{equation}
+    $A$是一个不随时间变化的微观量，那么称这样的分布为\textbf{稳态分布}.
+
+    \section{求解Liouville方程}
+    一般我们遇到的是给定初始密度分布，求解$t$时刻密度分布的问题，即如下一阶偏微分方程的初值问题
+    \footnote{
+        这里有一个有趣的问题，给定初始密度分布$f(x, p)$是满足归一化条件的，那么能否证明按照Liouville方程
+        演化的密度分布在任意时刻满足归一化条件呢？是可以的，假设0时刻密度函数分布在区域$D$内，考虑密度函数
+        在相空间上的积分对时间的导数：
+        在$t$时刻时：
+        \begin{equation}
+            \begin{split}
+                \frac{\mathrm{d}}{\mathrm{d}t}\int_{\phi^{t}(D)}\rho(x_{t}, p_{t},t)\mathrm{d}x_{t}\mathrm{d}p_{t} &= \frac{\mathrm{d}}{\mathrm{d}t}\int_{D}\rho[x_{t}(x_{0},p_{0},t), p_{t}(x_{0},p_{0},t),t]\frac{\partial(x_{t},p_{t})}{\partial(x_{0},p_{0})}\mathrm{d}x_{0}\mathrm{d}p_{0}\\
+                &= \int_{D}\left.\frac{\partial \rho[x_{t}(x_{0},p_{0},t), p_{t}(x_{0},p_{0},t),t]}{\partial t}\right|_{x_{0},p_{0}}\mathrm{d}x_{0}\mathrm{d}p_{0}\\
+                &= \int_{D}\left[\left.\frac{\partial \rho}{\partial t}\right|_{x_{t},p_{t}} + \left\{\rho, H\right\}_{x_{t},p_{t}}\right]\mathrm{d}x_{0}\mathrm{d}p_{0}\\
+                &=0 
+            \end{split}
+            \label{conservation of density}
+        \end{equation}
+        其中同时使用了Liouville定理和Liouville方程.  
+    }
+    （为了方便书写假设为一维系统）：
+    \begin{equation}
+        \left\{
+        \begin{split}
+            &-\pdv{\rho}{t} = \pdv{\rho}{x}\pdv{H}{p} - \pdv{\rho}{p}\pdv{H}{x}\\
+            &\rho(x, p, 0) = f(x, p)
+        \end{split}
+        \right.
+        \label{Liouville equation Cauchy problem}
+    \end{equation}
+    在求解这个问题时很难使用解析的方法，一般都是利用数值解法求解.针对Liouville方程的特点，我们
+    从两个视角出发，给出两种基本的解法.
+    从方程\ref{Liouville equation Euler}出发，可以研究给定区域（给定点附近）内系综密度随时间的变化，
+    这称为\textbf{Euler图象}
+    \footnote{这个名称来源于流体力学，Euler通过描述空间内的\textbf{流速场}来描述流体的运动；Lagrange通过描述
+    每一个质点的\textbf{运动轨迹}来描述流体的运动.}
+    .从方程\ref{Liouville equation Lagrange}出发，可以追踪相空间内按照Hamilton方程运动的点处的系综密度
+    ，轨线上任意一点的系综密度值都可以通过初值确定，这称为\textbf{Lagrange图象}.
+
+    \subsection{从Euler图像求解任意时刻的密度分布}
+    这里给出一个具体的问题.
+    回顾第一章中使用经典力学描述HCl分子的振动，在那里只讨论了谐振子的情形，通常使用Morse势来
+    更精确地描述这个振动，Morse势被定义为：
+    \begin{equation}
+        V(x) = D_e (1- \mathrm{e}^{-a(r-r_\mathrm{eq})})^2 = D_e(1-\mathrm{e}^{-ax})^2
+    \end{equation}
+    其中$a>0$, 在平衡位置附近可以使用谐振子近似（Taylor展开到二阶）.写出谐振子近似下的Boltzmann分布：
+    \begin{equation}
+        \rho(x,p,0) = \frac {1}{Z} \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} 
+    \end{equation}
+    其中谐振子的参数$\omega$后面给出.
+    上面给出的系综密度函数不满足归一化条件，只有归一化之后才会是严格意义上的系综密度函数，
+    显然归一化常数$Z$为：
+    \begin{equation}
+        Z = \int\ee^{-\beta H(x, p)}\dd x\dd p
+    \end{equation}
+    这个归一化常数被称为\textbf{正则配分函数}.
+    谐振子近似下的配分函数是
+    \begin{equation}
+        Z = \int \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} \mathrm{d}x\mathrm{d}p = \frac {2\pi}{\beta \omega}
+    \end{equation}
+    从量纲上分析，在配分函数中多出了$\mathrm{d}x\mathrm{d}p$的量纲（而且这么定义的配分函数的量纲
+    会随着系统的维数变化）.应该除以$2\pi\hslash$, 相当于对相空间做了量子化.于是
+    \begin{equation}
+        Z = \frac 1{\beta \hslash \omega}
+    \end{equation}
+    就是无量纲的配分函数.
+    \par 
+    回到用Morse势描述HCl的振动的问题，Morse势的常数$a$可以用谐振子近似的$\omega$进行估计.
+    令$x \to 0 $，对$V(x)$在平衡位置附近作Taylor展开，展开到二阶：
+    \begin{equation}
+        V(x) = D_e a^2 x^2 + o(x^2)
+    \end{equation}
+    势能在平衡位置Taylor展开的系数决定了谐振子近似中谐振子的参数：
+    \begin{equation}
+        \frac 12 m\omega^2x^2 = D_e a^2 x^2
+    \end{equation}
+    于是：
+    \begin{equation}
+        \omega = \sqrt{\frac {2D_ea^2}m}
+        \label{omega of Morse}
+    \end{equation}
+    这样就可以在知道振动频率（通过光谱数据）后构造双原子分子的Morse势.
+    \par 
+    现在我们考虑氢分子在Morse势下的振动，计算在Morse势下给定初始系综密度随时间的演化.
+    Hamilton量为：
+    \begin{equation}
+        H(x, p) = \frac{p^2}{2\mu} + D_e(1-\ee^{-ax^2})^2
+    \end{equation}
+    初始的系综密度给定：
+    \begin{equation}
+        \rho(x, p, 0) = \frac{1}{Z}\exp\left[-\beta\left(\frac{p^2}{2m} + \frac{1}{2}m\omega^2x^2\right)\right]
+    \end{equation}
+    这样就可以考虑初值问题\ref{Liouville equation Cauchy problem}.
+    与数值求解常微分方程的思路类似，我们希望用差分来代替方程中的偏微分.这样就需要把空间
+    \footnote{
+        很显然，只能划分有限空间上的网格，但是给出的密度函数并不是有限空间的函数，因此要做出取舍，
+        要看系综密度主要分布在什么位置，将会演化到什么位置.
+    }
+    划分成规则的（按照坐标线划分的）矩形网格，通过函数在网格点上的值来不断递推下一个时刻（时间也是离散的）
+    网格点上的函数值，对于边界值需要额外讨论
+    \footnote{
+        一般而言，有界区域上的偏微分方程都会给定边界条件，但是在处理我们的问题时人为选择了有界的区域，
+        边界条件需要自己给定，要怎么选择？
+    }
+    .
+    在$x$取值范围等距插入$M-1$个点，将其最小值与最大值分别记为$x_0, x_M$，令$\Delta x = x_{j+1} - x_j$
+    \footnote{
+        这里有一个问题，如何选择合适的空间步长$\Delta x$？
+    }
+    ；在$p$取值的范围等距插入
+    $N-1$个点，将其最小值与最大值分别记为$p_0, p_N$，令$\Delta p = p_{j + 1} - p_j$.
+    这样就构造了\textbf{某个时刻}相空间中的格点
+    ；将初始时刻记作$t_0$，时间步长设为$\Delta t$，
+    如此也构造了离散的时间点$t_n$.解偏微分方程相当于通过前一个时刻空间中函数值推出下一个时刻
+    空间中函数值的过程，而这里通过将空间格点化的方法数值求解的过程相当于通过$t_j$时刻对应相空间格点上
+    的函数值递推$t_{j+1}$时刻相空间格点上函数值的过程.下面给出基本的递推方案，为了方便起见，首先引入一些
+    记号（对于格点的编号）：
+    \begin{equation}
+        \rho_{i, j}^{n} := \rho(x_i, p_j, t_n)
+    \end{equation}
+    那么$\rho$对时间的偏导数可以表示为：
+    \begin{equation}
+        \pdv{\rho(x_i, p_j, t_n)}{t} \approx  \frac{\rho_{i, j}^{n + 1} - \rho_{i, j}^{n}}{\Delta t}
+    \end{equation}
+    其中$\rho_{i, j}^{n+1}$是待求的量.同样也可以通过差分表示$\rho$对$x, p$的偏微分：
+    \begin{equation}
+        \begin{split}
+            \pdv{\rho(x_i, p_j, t_n)}{x} &\approx \frac{\rho_{i + 1, j}^{n} - \rho_{i, j}^n}{\Delta x}
+             \approx \frac{\rho_{i + 1, j}^{n} - \rho_{i-1, j}^n}{2\Delta x}\\
+             \pdv{\rho(x_i, p_j, t_n)}{p} &\approx \frac{\rho_{i, j+1}^{n} - \rho_{i, j}^n}{\Delta p}
+             \approx \frac{\rho_{i, j+1}^{n} - \rho_{i, j+1}^n}{2\Delta p}
+        \end{split}
+    \end{equation}
+    注意到上面使用了\textbf{中心差分}作为一种数值微分方法，中心差分更加对称，一般而言比不对称差分
+    （对事件求导的差分）拥有更高的精度.使用这样的差分方案将Liouville方程改为差分方程：
+    \begin{equation}
+        -\frac{\rho_{i, j}^{n+1} - \rho_{i, j}^{n}}{\Delta t} = \frac{p_j}{\mu}
+        \frac{\rho_{i+1, j}^{n} - \rho_{i-1, j}^{n}}{\Delta x} - V_x(x_i)
+        \frac{\rho_{i, j+1}^{n} - \rho_{i, j-1}^{n}}{\Delta p}
+    \end{equation}
+    这个方案被称为显式的差分方案，因为$t_{n+1}$时刻格点上的函数值可以直接通过上面的式子显式地表达：
+    \begin{equation}
+        \rho_{i, j}^{n+1} = \rho_{i, j}^{n} + \frac{\Delta t}{2\Delta p}V_{x}(x_i)(\rho_{i, j+1}^{n} - \rho_{i, j-1}^{n})
+        - \frac{p_j\Delta t}{2 \mu \Delta x}(\rho_{i+1, j}^{n} - \rho_{i-1, j}^{n}) 
+    \end{equation}
+    可以看出根据前一个时刻5个格点的数据可以递推出下一个时刻一个格点的函数值.这样看起来已经很好地解决了
+    数值演化系综密度的问题，理论上只要将时间步长和空间步长取得足够小，就可以获得任意精确的解，但是实际
+    并不是这样，真实计算中无法将步长取的任意小（更小的时间步长会带来更大的计算量，同时也受到
+    计算机处理浮点数精度的影响）所以我们获取的数值解并不一定准确
+    \footnote{
+        至于“有限差分带来的误差到底有多大”，“这样的误差怎么传递”，“误差会不会累积”这样的问题就不是本课程
+        能够讨论的内容了，应该查阅数值偏微分方程相关的书籍.
+    }
+    .
+    \par 
+    经过实践\footnote{是修改笔记者的实践，情况仅供参考}，这种显式的差分方案数值上不稳定（长时间演化会带来
+    函数值的发散，尤其集中在选定区域的边界）.一般而言，隐式的差分方案在数值上相较于显式方案更加稳定，
+    在隐式方案中，对于空间的微分要通过下一个时刻格点上的函数值计算：
+    \begin{equation}
+        \pdv{\rho(x_i, p_j, t_n)}{x} \approx \frac{\rho_{i + 1, j}^{n+1} - \rho_{i, j}^{n+1}}{\Delta x}
+             \approx \frac{\rho_{i + 1, j}^{n+1} - \rho_{i-1, j}^{n+1}}{2\Delta x}
+    \end{equation}
+    下面给出一个笔记修改者使用过的隐式差分方案：
+    \begin{equation}
+        \begin{split}
+            \frac{\rho_{i,j}^{n+0.5} - \rho_{i,j}^{n}}{\Delta t/2} &= V_{x}(x_{i})\left[\frac{\rho_{i,j+1}^{n+0.5} - 
+            \rho_{i,j-1}^{n+0.5}}{2\Delta p}\right] - \frac{p_{j}}{\mu}\left[\frac{\rho_{i+1,j}^{n} - 
+            \rho_{i-1,j}^{n}}{2\Delta x}\right]\\
+            \frac{\rho_{i,j}^{n+1} - \rho_{i,j}^{n+0.5}}{\Delta t/2} &= V_{x}(x_{i})\left[\frac{\rho_{i,j+1}^{n+0.5} -
+            \rho_{i,j-1}^{n+0.5}}{2\Delta p}\right] - \frac{p_{j}}{\mu}\left[\frac{\rho_{i+1,j}^{n+1} - 
+            \rho_{i-1,j}^{n+1}}{2\Delta x}\right]
+        \end{split}
+    \end{equation}
+    这是一种半隐式的方案，一个时间步长分为两小步演化，每一个方程中有一个变量的微分通过隐式计算、另一个通过显式计算
+    \footnote{
+        这样的目的是为了让待求解的线性方程组更加简单（是一个三对角矩阵方程），从原理上讲可以采用全隐式
+        差分方案，但是得到的线性方程组是更高阶的，会使得整体计算的复杂度更高.
+    }
+    .
+    引入记号$r:=\frac{\Delta t}{\Delta p},\, s:=\frac{\Delta t}{\Delta x}$，上面的两个差分方程可以写为如下形式：
+    \begin{equation}
+        \begin{split}
+            &\frac{V_{x}(x_{i})}{4}r\cdot\rho_{i,j-1}^{n+0.5} + \rho_{i,j}^{n+0.5} - \frac{V_{x}(x_{i})}{4}r\cdot\rho_{i,j+1}^{n+0.5} =
+             \frac{p_{j}}{4\mu}s\cdot\rho_{i-1,j}^{n} + \rho_{i,j}^{n} - \frac{p_{j}}{4\mu}s\cdot\rho_{i+1,j}^{n} \\
+            &- \frac{p_{j}}{4\mu}s\cdot\rho_{i-1,j}^{n+1} + \rho_{i,j}^{n+1} + \frac{p_{j}}{4\mu}s\cdot\rho_{i+1,j}^{n+1} =
+            -\frac{V_{x}(x_{i})}{4}r\cdot\rho_{i,j-1}^{n+0.5} + \rho_{i,j}^{n+0.5} + \frac{V_{x}(x_{i})}{4}r\cdot\rho_{i,j+1}^{n+0.5}
+        \end{split}
+    \end{equation}
+    可以看出上面两个方程都是三对角的矩阵方程
+    \footnote{
+        三对角矩阵方程指的是线性方程组的系数矩阵除了主对角线和两个次对角线以外，
+        其余元素均为零的线性方程组，求解这样的方程组有特殊的算法（追赶法），为$O(n^2)$复杂度
+        ，显著快于求解一般线性方程组的Gauss消元法（$O(n^3)$复杂度）
+    }
+    ，可以每次求解n个这样的三对角矩阵方程来得到下一个时刻格点上的函数值.经过实践，这个隐式的差分方案
+    在较大的空间步长上都是数值稳定的，但是计算量较大.
+    \par 
+    这里还留有一个问题，根据前文的讨论\ref{conservation of density}，在密度函数随时间演化的过程中
+    其始终是归一化的，但是我们这里讨论的数值解法是否可以保证这一点呢？能不能发展出保持这个守恒量
+    的差分格式呢？
+
+    \subsection{从Lagrange图像求解任意时刻密度分布}
+    前一节中使用格点化相空间的方法数值求解了Liouville方程，这种方法在相空间维数很高的时候计算量急剧上升
+    （主要是因为格点的数量随着维度指数上升），
+    导致这种方法无法适用于高维系统的计算.除了用Euler图象来演化密度函数以外，也可以用Lagrange图象来演化密度函数.
+    考虑Liouville方程的另一种形式：
+    \begin{equation}
+        \frac {\mathrm{d}}{\mathrm{d}t} \rho(x_t(x_0, p_0, t),p_t(x_0, p_0, t),t) = 0
+    \end{equation}
+    可以\textbf{形式上}得到$t$时刻的概率密度为：
+    \begin{equation}
+        \rho(x,p,t) = \int \rho(x_0,p_0,0)\delta(x-x_t(x_0,p_0)) \delta(p-p_t(x_0,p_0)) \mathrm{d}x_0\mathrm{d}p_0
+        \label{formal solution}
+    \end{equation}
+    这里使用了$\delta$函数
+    \footnote{
+        严格来讲$\delta$函数并不是普通意义上的函数，而是广义函数，有关$\delta$函数的严格理论
+        这里不做讨论，只是从物理含义（直观）上给出一个概念
+    }
+    .$\delta$函数满足：
+    \begin{equation}
+        \begin{split}
+        &\delta(x-x_0) = 0, \ \forall \ x \neq x_0\\
+        &\int_{-\infty}^{+\infty} \delta(x-x_0) \mathrm{d}x = 1\\
+        &\int_{-\infty}^{+\infty} f(x)\delta(x-x_0) \mathrm{d}x = f(x_0)
+        \end{split}
+        \label{delta function}
+    \end{equation}
+    \footnote{$\delta$函数的严格定义是从上面性质的第三条出发的，$\delta$函数被
+    定义为试验函数空间上的满足性质3的连续线性泛函}基于上面的性质，$\delta$函数
+    在物理中经常被用来描述一些集中在某一点但积分有限的量（比如带有一定电量的点电荷，具有质量的质点）.
+    现在希望给$\delta$函数给一个形式
+    \footnote{
+        可以证明$\delta$函数并不能表示为普通函数的形式，但是可以用普通函数序列来逼近.
+    }
+    ，让它和上面满足的性质自洽：
+    可以利用Fourier变换
+    \footnote{注意这里Fourier变换的定义，为了对称通常将系数写为$\frac{1}{\sqrt{2\pi}}$}
+    及其逆变换的性质给出一个积分形式的$\delta$函数（形式上的）：
+    \begin{equation}
+        \begin{split}
+            F(k) &:= \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{-\mathrm{i}kx}\mathrm{d}x\\
+            f(x) &= \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} F(k)\mathrm{e}^{\mathrm{i}kx}\mathrm{d}k
+        \end{split}
+        \label{fourier transform}
+    \end{equation}
+    于是有:
+    \begin{equation}
+        \begin{split}
+            f(x_0) &= \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty}\left[\frac 1{\sqrt{2\pi}} 
+            \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{-\mathrm{i}kx}\mathrm{d}x\right] \mathrm{e}^{\mathrm{i}kx_0}\mathrm{d}k\\
+            &= \frac 1{2\pi} \int_{-\infty}^{+\infty}f(x)\left[\int_{-\infty}^{+\infty}\ee^{-\ii k(x - x_0)}\dd k\right]\dd x
+        \end{split}
+    \end{equation}
+    在上式中第二步交换了两个广义积分的顺序，其中的\textbf{收敛性}值得仔细考虑，在这里交换后积分并不收敛，
+    但是可以形式上定义$\delta$函数为（为了方便使用）：
+    \begin{equation}
+        \delta(x-x_0) = \frac 1{2\pi} \int_{-\infty}^{+\infty} \mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}k
+        \label{integral formation of delta function}
+    \end{equation}
+    讨论完了$\delta$函数这个数学工具，我们回到使用Lagrange图像解决密度函数演化的问题.直接利用：
+    \begin{equation}
+        \rho(x_t(x_0, p_0), p_t(x_0, p_0), t) = \rho(x_0, p_0, 0)
+    \end{equation}
+    给定相空间中的初始点$(x_0, p_0)$，只要数值求解Hamilton方程，就可以得到
+    $(x_t(x_0, p_0), p_t(x_0, p_0))$处的系综密度值，那么可以抽取初始时刻相空间中
+    大量的点（比如一个矩形的网格），同时按照Hamilton方程演化这些点，就可以得到这些点$t$
+    时刻时在相空间中的分布，进而得出这些点的系综密度值.这种方法只用求解常微分方程组（前面章节中
+    讨论过数值解法），计算量比较小而且适用于维数较高的情况.除此之外还有一个明显的优点，我们可以
+    在初始时刻时就去关注那些有着明显密度分布的点.
+    \par 
+    上述的思想可以进一步推广，去解决更普遍的一些一阶偏微分方程，考虑如下方程：
+    \begin{equation}
+        \pdv{f(\bm{x}, t)}{t} + \bm{g}(\bm{x}, t) \cdot \pdv{f(\bm{x}, t)}{\bm{x}} = 0
+    \end{equation}
+    其中$\bm{g}(\bm{x}, t)$是一个给定的向量值函数，可以看作$\mathbb{R}^n$上的速度场，
+    为了形象起见，考虑一个在$\mathbb{R}^n$中沿着速度场运动的粒子，那么它满足：
+    \begin{equation}
+        \dv{\bm{x}}{t} = \bm{g}(\bm{x}, t)
+        \label{character line}
+    \end{equation}
+    容易看出沿着这个粒子的运动轨迹，函数$f$的值不变，这样可以仿照Lagrange图像求解密度函数的方法来求解
+    任意时刻$f$的数值.将这个粒子的运动轨迹\ref{character line}称为这个一阶偏微分方程的特征线，
+    Hamilton方程决定的曲线就是Liouville方程的特征线，因此这个方法也被称为特征线方法.
+    \par
+    物理量$B(x, p)$的期望定义为：
+    \begin{equation}
+        \langle B(t) \rangle = \int \rho(x,p,t) B(x,p) \mathrm{d}x\mathrm{d}p
+    \end{equation}
+    回到用Morse势描述HCl的振动的问题，初始时刻为谐振子的Boltzmann分布时，计算位置、位置平方的期望和位置涨落：
+    \begin{equation}
+        \begin{split}
+            \langle x \rangle &= 0\\
+            \langle x^2 \rangle &= \frac 1{\beta m \omega^2}\\
+            \Delta x &= \sqrt{\langle x^2 \rangle - \langle x \rangle ^2} = \frac 1{\sqrt{\beta m \omega^2}}
+        \end{split}
+    \end{equation}
+    但是上面这些量会随着时间演化（原因是系综密度会随时间变化），上文中已经给出了任意时刻系综密度的计算方法
+    ，理论上可以计算任意时刻的上述物理量，但是实际上会有相当的麻烦
+    \footnote{
+        根据笔记修改者的经验，如果要计算系综平均值必须依赖于任意时刻格点上的系综密度，将这些数据存储
+        起来可能是一笔不小的开销（很有可能会导致内存溢出）；另外，
+        通过Lagrange图像求解系综密度一般来说不能得到矩形格点上的系综密度值，会造成数值积分的困难.
+    }
+    .我们可以有更好的方法来计算这些物理量，利用Liouville方程的形式解\ref{formal solution}，
+    可以将$t$时刻物理量的期望表示为
+    \footnote{
+        如果觉得使用包含$\delta$函数的形式解计算数学上不够“严格”，也可以利用0时刻与$t$时刻之间粒子位置的映射（严格讲
+        是Hamilton相流）$\phi^t$进行积分换元，然后使用Liouville定理和Liouville方程，得到完全相同的结果.
+    }
+    ：
+    \begin{equation}
+        \begin{split}
+            \langle B(t) \rangle &= \int \rho(\bm{x},\bm{p},t) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
+            &= \iint \rho(\bm{x}_0,\bm{p}_0,0)\delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0 B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
+            &= \iint \delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p} \rho(\bm{x}_0,\bm{p}_0,0) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0\\
+            &= \int B(\bm{x}_t,\bm{p}_t) \rho(\bm{x}_0,\bm{p}_0,0)\mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0
+        \end{split}
+    \end{equation}
+    这意味着，只用初始概率密度也可以得到$t$时刻的物理量的期望，这使得数值计算变得十分方便.
+
+    在经典的情形下，由于不考虑不确定性关系，因此这里可以任意交换两个delta函数的次序。
+    后面我们将看到，在量子相空间中，存在算符的delta函数，因此不能随意交换两个delta函数的次序，否则会导致相空间定义的改变。
+
+    \section{应用：多原子分子的振动配分函数}
+
+    考虑NVT系综中的水分子。利用简正坐标变换，单个水分子的系综密度函数可以表示为：
+    \begin{equation}
+        \begin{split}
+            \rho(\bm{x}, \bm{p}) &= \frac{1}{Z}\exp\left[-\beta H(\bm{x}, \bm{p})\right]
+            = \frac{1}{Z}\exp\left[-\beta\left(\frac{1}{2}\bm{p}^{\mr{t}}\mb{M}^{-1}\bm{p} + V(\bm{x})\right)\right]\\
+            Z &= \frac{1}{(2\pi\hslash)^{3N}}\int\exp\left[-\beta H(\bm{x}, \bm{p})\right]\dd \bm{x}\dd \bm{p}
+        \end{split}
+    \end{equation}
+    如果可以知道$V(\bm{x})$的具体形式
+    \footnote{可以从文献中查找到描述水分子不同性质、不同精度的势能面}
+    , 就可以计算出配分函数$Z$
+    \footnote{即使在$V(\bm{x})$形式已知的情况下, 计算配分函数也并不是简单的事情.
+    之前提到了在Morse势下计算\ce{HCl}分子物理量的系综平均值, （只考虑径向）
+    这个二体系统的相空间只有2维, 可以采用划分网格等传统数值积分方法计算.
+    \textbf{但是}, 对于水分子, 相空间有9维, 如果采用网格法计算这样的积分, 那么
+    格点数量会随系统的维数指数增加.为了计算这类高维积分, 人们发展了\textbf{分子动力学}
+    与\textbf{Monte Carlo}等方法, 不再均匀地从相空间中取点, 而是在
+    $\exp\left[-\beta H(\bm{x}, \bm{p})\right]$取值比较大的地方采更多的
+    点.}
+    , 进一步获得水分子的热力学性质.这里为了计算方便, 考虑对势能面使用小振动近似
+    \footnote{
+        容易想象, 当系统温度较低时, 系综密度只分布在平衡点附近, 此时小振动近似是比较准确
+        的.（当然, 这里是经典谐振子, 如果使用量子力学框架, 需要另行讨论）
+    }
+    , 那么Cartesian坐标下的系综密度应该写为：
+    \begin{equation}
+        \begin{split}
+            \rho(\bm{x}, \bm{p}) = \frac{1}{Z}\exp\left[-\beta\left(
+                \frac{1}{2}\bm{p}^{\mr{t}}\mb{M}^{-1}\bm{p} + \frac{1}{2}\bm{x}^{\mr{t}}
+                \mb{V}^{(2)}\bm{x}
+            \right)\right]
+        \end{split}
+    \end{equation}
+    在简正坐标下小振动近似的Hamilton量有着简单的形式, 因此我们非常希望能用简正坐标表示
+    系综密度函数（这相当于在讨论坐标变换之下系综密度的变换规则）.假设坐标变换为：
+    $\sigma: (\bm{x}, \bm{p})\mapsto(\bm{Q}, \bm{P})$, 
+    系综密度函数为$\tilde{\rho}(\bm{Q}, \bm{P})$, 考虑相空间内的一块体积$D$, 无论
+    使用哪个坐标表示, 这块体积包含的系综密度是相同的, 有：
+    \begin{equation}
+        \begin{split}
+            \int_{D(\bm{x},\bm{p})}\rho(\bm{x}, \bm{p})\dd \bm{x}\dd \bm{p}
+             = \int_{D(\bm{Q}, \bm{P})}\tilde{\rho}(\bm{Q}, \bm{P})\dd \bm{Q}\dd \bm{P}
+        \end{split}
+    \end{equation}
+    其中$D(\bm{x},\bm{p})$为体积$D$在原坐标下的表示, 而$D(\bm{Q}, \bm{P})$为体积$D$在
+    新坐标下的表示, 对于任意的体积$D$上式成立, 那么利用重积分的换元公式, 可以得到：
+    \begin{equation}
+        \tilde{\rho}(\bm{Q}, \bm{P}) = \rho(\bm{x}, \bm{p})\left|\pdv{(\bm{x}, \bm{p})}{(\bm{Q}, \bm{P})}\right|
+    \end{equation}
+    （上式中的$(\bm{x}, \bm{p})$要用$(\bm{Q}, \bm{P})$表示）.考虑简正坐标变换：
+    \begin{equation}
+        \begin{aligned}
+            \left|\frac {\partial (\bm{x,p})}{\partial (\bm{Q,,P})}\right| &= \det
+            \begin{pmatrix}
+                \mb{M}^{-\frac{1}{2}}\mb{S} & 0\\
+                0 & \mb{M}^{\frac{1}{2}}\mb{S}
+            \end{pmatrix}
+            = 1
+        \end{aligned}
+    \end{equation}
+    这里用到了正交矩阵的行列式为1.这样得到了简正坐标下的系综密度：
+    \begin{equation}
+        \tilde{\rho}(\bm{Q}, \bm{P}) = \rho(\bm{x}(\bm{Q}, \bm{P}), \bm{p}(\bm{Q}, \bm{P})) 
+        = \frac{1}{Z}\exp\left[-\beta\sum_{j=1}^{N}\left(\frac{1}{2}P_{j}^{2} + \frac{1}{2}\omega_{j}^2 Q_{j}^{2}\right)\right] 
+    \end{equation}
+    可以看到使用小振动近似后, 系统的系综密度函数在简正坐标下具有Gauss函数乘积的形式, 具体
+    来说, 可以定义每个简正坐标自由度的“系综密度”：
+    \begin{equation}
+        \tilde{\rho}_{j}(Q_j, P_j) = \frac {1}{\beta\hslash\omega_j} \exp\left[-\frac {\beta}2 (P_j^2 + \omega_j^2 Q_j^2)\right]
+    \end{equation}
+    系统的系综密度为各个自由度“系综密度”的乘积：
+    \begin{equation}
+        \tilde{\rho}(\bm{Q}, \bm{P}) = \prod_{j=1}^{N}\tilde{\rho}_{j}(Q_j, P_j)
+    \end{equation}
+    系综密度可以表示为Gauss函数乘积的这个特点可以极大地方便数值计算, 考虑系统的物理量$B$
+    , 将其写为简正坐标的函数$B(\bm{Q}, \bm{P})$, 那么平均值为：
+    \begin{equation}
+        \begin{split}
+            \left<B\right> = \int B(\bm{Q}, \bm{P})\prod_{j=1}^{N}\tilde{\rho}_j\dd \bm{Q}\dd \bm{P}
+        \end{split}
+    \end{equation}
+    分别在每个自由度上按照对应的密度函数采样
+    \footnote{
+        如果想了解怎么按照Gauss函数对应的密度分布抽样, 可以参考Box-Muller sampling
+    }
+    , 将这些坐标组合为相空间中点的坐标, 这样得到
+    对于相空间中密度函数的抽样, 根据这个抽样可以计算$\left<B\right>$, 这个方法被称为
+    “重要性抽样”.
+
+
+    \begin{asg}
+        尝试用不同的方法证明Liouville定理.
+    \end{asg}
+    \begin{asg}
+        Boltzmann分布是否为稳态分布？
+    \end{asg}
+    \begin{asg}
+        查阅\ce{H2}分子的红外光谱数据，构造\ce{H2}分子的Morse势表达式.
+    \end{asg}
+    \begin{asg}
+        以谐振子的Boltzmann分布为初始分布，在Morse势，Euler图象下演化\ce{H2}的$t$时刻的分布.
+    \end{asg}
+    \begin{asg}
+        以谐振子的Boltzmann分布为初始分布，在Morse势，Lagrange图象下演化\ce{H2}的$t$时刻的分布.
+    \end{asg}
+
+    \bibliographystyle{plain}
+    \bibliography{ref_phasespace}
